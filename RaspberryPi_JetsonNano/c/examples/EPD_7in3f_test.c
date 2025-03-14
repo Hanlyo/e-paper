@@ -35,6 +35,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <curl/curl.h>
+#include <cjson/cJSON.h>
 
 
 
@@ -42,8 +43,7 @@
 
 
 
-
-#define URL_FORMAT "http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric"
+#define URL_FORMAT "http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric&units=metric&lang=de"
 
 struct MemoryStruct {
     char *memory;
@@ -55,7 +55,7 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
     struct MemoryStruct *mem = (struct MemoryStruct *)userp;
 
     char *ptr = realloc(mem->memory, mem->size + realsize + 1);
-    if (ptr == NULL) return 0; 
+    if (ptr == NULL) return 0;
 
     mem->memory = ptr;
     memcpy(&(mem->memory[mem->size]), contents, realsize);
@@ -65,11 +65,11 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
     return realsize;
 }
 
-void fetch_weather(const char *city, const char *api_key) {
+char *fetch_weather_data(const char *city, const char *api_key) {
     CURL *curl;
     CURLcode res;
     struct MemoryStruct chunk;
-    
+
     chunk.memory = malloc(1);
     chunk.size = 0;
 
@@ -78,25 +78,69 @@ void fetch_weather(const char *city, const char *api_key) {
 
     curl_global_init(CURL_GLOBAL_ALL);
     curl = curl_easy_init();
-    
+
     if (curl) {
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
-        
+
         res = curl_easy_perform(curl);
-        if (res == CURLE_OK) {
-            printf("Wetterdaten für %s: %s\n", city, chunk.memory);
-        } else {
+        if (res != CURLE_OK) {
             fprintf(stderr, "cURL Fehler: %s\n", curl_easy_strerror(res));
+            free(chunk.memory);
+            chunk.memory = NULL;
         }
 
         curl_easy_cleanup(curl);
-        free(chunk.memory);
     }
 
     curl_global_cleanup();
+    return chunk.memory;
 }
+
+double get_temperature(const char *json) {
+    cJSON *root = cJSON_Parse(json);
+    if (root == NULL) {
+        fprintf(stderr, "Fehler beim Parsen der JSON-Daten\n");
+        return -999.0;  // Fehlerwert
+    }
+
+    double temp = -999.0;
+    cJSON *main = cJSON_GetObjectItem(root, "main");
+    if (main) {
+        cJSON *temp_json = cJSON_GetObjectItem(main, "temp");
+        if (temp_json) {
+            temp = temp_json->valuedouble;
+        }
+    }
+
+    cJSON_Delete(root);
+    return temp;
+}
+
+char *get_weather_description(const char *json) {
+    cJSON *root = cJSON_Parse(json);
+    if (root == NULL) {
+        fprintf(stderr, "Fehler beim Parsen der JSON-Daten\n");
+        return NULL;
+    }
+
+    char *description = NULL;
+    cJSON *weather = cJSON_GetObjectItem(root, "weather");
+    if (cJSON_IsArray(weather) && cJSON_GetArraySize(weather) > 0) {
+        cJSON *weather_item = cJSON_GetArrayItem(weather, 0);
+        if (weather_item) {
+            cJSON *desc = cJSON_GetObjectItem(weather_item, "description");
+            if (desc) {
+                description = strdup(desc->valuestring);
+            }
+        }
+    }
+
+    cJSON_Delete(root);
+    return description;
+}
+
 
 
 
@@ -166,7 +210,29 @@ int EPD_7in3f_test(void)
 #if 1   // Drawing on the image
 
 
-    fetch_weather(CITY, API_KEY);
+    char *json = fetch_weather_data(CITY, API_KEY);
+    if (json == NULL) {
+        fprintf(stderr, "Fehler beim Abrufen der Wetterdaten\n");
+        return 1;
+    }
+
+    double temp = get_temperature(json);
+    char *description = get_weather_description(json);
+
+    printf("Temperatur: %.2f°C\n", temp);
+    printf("Wetter: %s\n", description ? description : "Unbekannt");
+
+
+    static char str[52];  // Puffer für die Zeichenkette
+    sprintf(str, "%d", temp);
+    const char *ptr = str; // Zeiger auf die Zeichenkette
+    Paint_DrawString_EN(200, 0, ptr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(400, 0, description, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+
+    free(json);
+    free(description);
+
+
 
 
     // 1.Select Image
@@ -186,7 +252,7 @@ int EPD_7in3f_test(void)
     struct tm *tm_info = localtime(&t);
     strftime(buffer, sizeof(buffer), "%A, %d. %B %Y", tm_info);
     
-    Paint_DrawString_EN(400, 0, buffer, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(200, 40, buffer, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
     // Paint_DrawString_EN(400, 20, mon, &Font16, EPD_7IN3F_BLACK, EPD_7IN3F_WHITE);
     // Paint_DrawString_EN(400, 40, day, &Font16, EPD_7IN3F_BLACK, EPD_7IN3F_WHITE);
     // Paint_DrawString_EN(400, 60, hour, &Font16, EPD_7IN3F_BLACK, EPD_7IN3F_WHITE);
