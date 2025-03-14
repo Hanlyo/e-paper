@@ -226,7 +226,7 @@ int EPD_7in3f_test(void)
     static char str[52];  // Puffer für die Zeichenkette
     sprintf(str, "%f", temp);
     const char *ptr = str; // Zeiger auf die Zeichenkette
-    Paint_DrawString_EN(200, 0, str, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(200, 0, ptr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
     // Paint_DrawString_EN(400, 0, description, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
 
     free(json);
