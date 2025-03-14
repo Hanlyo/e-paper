@@ -209,6 +209,18 @@ int EPD_7in3f_test(void)
 
 #if 1   // Drawing on the image
 
+    // 1.Select Image
+    printf("SelectImage:BlackImage\r\n");
+    Paint_SelectImage(BlackImage);
+    Paint_Clear(EPD_7IN3F_WHITE);
+
+    // 2.Drawing on the image
+    printf("Drawing:BlackImage\r\n");
+    Paint_DrawPoint(10, 80, EPD_7IN3F_RED, DOT_PIXEL_1X1, DOT_STYLE_DFT);
+    Paint_DrawPoint(10, 90, EPD_7IN3F_BLUE, DOT_PIXEL_2X2, DOT_STYLE_DFT);
+    Paint_DrawPoint(10, 100, EPD_7IN3F_GREEN, DOT_PIXEL_3X3, DOT_STYLE_DFT);
+
+
 
     char *json = fetch_weather_data(CITY, API_KEY);
     if (json == NULL) {
@@ -228,25 +240,14 @@ int EPD_7in3f_test(void)
     const char *ptr = str; // Zeiger auf die Zeichenkette
     printf("Test: %s\n", str);
     printf("Test2: %s\n", ptr);
-    Paint_DrawString_EN(200, 0, "asdf", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(200, 0, str, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
     // Paint_DrawString_EN(400, 0, description, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
 
     free(json);
     free(description);
 
 
-
-
-    // 1.Select Image
-    printf("SelectImage:BlackImage\r\n");
-    Paint_SelectImage(BlackImage);
-    Paint_Clear(EPD_7IN3F_WHITE);
-
-    // 2.Drawing on the image
-    printf("Drawing:BlackImage\r\n");
-    Paint_DrawPoint(10, 80, EPD_7IN3F_RED, DOT_PIXEL_1X1, DOT_STYLE_DFT);
-    Paint_DrawPoint(10, 90, EPD_7IN3F_BLUE, DOT_PIXEL_2X2, DOT_STYLE_DFT);
-    Paint_DrawPoint(10, 100, EPD_7IN3F_GREEN, DOT_PIXEL_3X3, DOT_STYLE_DFT);
+    
 
     
     char buffer[50];
