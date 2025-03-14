@@ -60,7 +60,7 @@ CFLAGS += $(MSG) -D $(EPD)
 
 RPI_epd:${OBJ_O}
 	echo $(@)
-	$(CC) $(CFLAGS) -D RPI $(OBJ_O) $(RPI_DEV_C) -o $(TARGET) $(LIB_RPI) $(DEBUG) -lcurl
+	$(CC) $(CFLAGS) -D RPI $(OBJ_O) $(RPI_DEV_C) -o $(TARGET) $(LIB_RPI) $(DEBUG) -lcurl -lcjson
 	
 JETSON_epd:${OBJ_O}
 	echo $(@)
@@ -69,25 +69,25 @@ JETSON_epd:${OBJ_O}
 $(shell mkdir -p $(DIR_BIN))
 
 ${DIR_BIN}/%.o:$(DIR_Examples)/%.c
-	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) -I $(DIR_GUI) -I $(DIR_EPD) $(DEBUG) -lcurl
+	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) -I $(DIR_GUI) -I $(DIR_EPD) $(DEBUG) -lcurl -lcjson
 	
 ${DIR_BIN}/%.o:$(DIR_EPD)/%.c
-	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) $(DEBUG) -lcurl
+	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) $(DEBUG) -lcurl -lcjson
 
 ${DIR_BIN}/%.o:$(DIR_FONTS)/%.c 
-	$(CC) $(CFLAGS) -c	$< -o $@ $(DEBUG) -lcurl
+	$(CC) $(CFLAGS) -c	$< -o $@ $(DEBUG) -lcurl -lcjson
 	
 ${DIR_BIN}/%.o:$(DIR_GUI)/%.c
-	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) $(DEBUG) -lcurl
+	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) $(DEBUG) -lcurl -lcjson
 
 RPI_DEV:
 ifeq ($(USELIB_RPI), USE_DEV_LIB)
-	$(CC) $(CFLAGS) $(DEBUG_RPI) -c	 $(DIR_Config)/dev_hardware_SPI.c -o $(DIR_BIN)/dev_hardware_SPI.o $(LIB_RPI) $(DEBUG) -lcurl
-	$(CC) $(CFLAGS) $(DEBUG_RPI) -c	 $(DIR_Config)/DEV_Config.c -o $(DIR_BIN)/DEV_Config.o $(LIB_RPI) $(DEBUG) -lcurl
-	$(CC) $(CFLAGS) $(DEBUG_RPI) -c	 $(DIR_Config)/RPI_gpiod.c -o $(DIR_BIN)/RPI_gpiod.o $(LIB_RPI) $(DEBUG) -lcurl
+	$(CC) $(CFLAGS) $(DEBUG_RPI) -c	 $(DIR_Config)/dev_hardware_SPI.c -o $(DIR_BIN)/dev_hardware_SPI.o $(LIB_RPI) $(DEBUG) -lcurl -lcjson
+	$(CC) $(CFLAGS) $(DEBUG_RPI) -c	 $(DIR_Config)/DEV_Config.c -o $(DIR_BIN)/DEV_Config.o $(LIB_RPI) $(DEBUG) -lcurl -lcjson
+	$(CC) $(CFLAGS) $(DEBUG_RPI) -c	 $(DIR_Config)/RPI_gpiod.c -o $(DIR_BIN)/RPI_gpiod.o $(LIB_RPI) $(DEBUG) -lcurl -lcjson
 else
-	$(CC) $(CFLAGS) $(DEBUG_RPI) -c	 $(DIR_Config)/dev_hardware_SPI.c -o $(DIR_BIN)/dev_hardware_SPI.o $(LIB_RPI) $(DEBUG) -lcurl
-	$(CC) $(CFLAGS) $(DEBUG_RPI) -c	 $(DIR_Config)/DEV_Config.c -o $(DIR_BIN)/DEV_Config.o $(LIB_RPI) $(DEBUG) -lcurl
+	$(CC) $(CFLAGS) $(DEBUG_RPI) -c	 $(DIR_Config)/dev_hardware_SPI.c -o $(DIR_BIN)/dev_hardware_SPI.o $(LIB_RPI) $(DEBUG) -lcurl -lcjson
+	$(CC) $(CFLAGS) $(DEBUG_RPI) -c	 $(DIR_Config)/DEV_Config.c -o $(DIR_BIN)/DEV_Config.o $(LIB_RPI) $(DEBUG) -lcurl -lcjson
 endif
 	
 JETSON_DEV:
