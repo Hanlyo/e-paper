@@ -32,6 +32,7 @@
 #include "EPD_7in3f.h"
 #include "time.h"
 #include <stdio.h>
+#include "weather.h"
 
 int EPD_7in3f_test(void)
 {
@@ -63,7 +64,7 @@ int EPD_7in3f_test(void)
 
     Paint_SetRotate(ROTATE_180);
 
-#if 1   // show bmp
+#if 0   // show bmp
     printf("show bmp1-----------------\r\n");
     Paint_SelectImage(BlackImage);
     Paint_Clear(EPD_7IN3F_WHITE);
@@ -86,7 +87,17 @@ int EPD_7in3f_test(void)
     // DEV_Delay_ms(3000);
 #endif
 
-#if 0   // Drawing on the image
+
+#define API_KEY "3128d4668dffb45c2e2c08d9f2c52d82"
+#define CITY "Berlin"
+
+
+#if 1   // Drawing on the image
+
+
+    fetch_weather(CITY, API_KEY);
+
+
     // 1.Select Image
     printf("SelectImage:BlackImage\r\n");
     Paint_SelectImage(BlackImage);
