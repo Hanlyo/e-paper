@@ -227,7 +227,7 @@ int EPD_7in3f_test(void)
     Paint_NewImage(BlackImage, EPD_7IN3F_WIDTH, EPD_7IN3F_HEIGHT, 0, EPD_7IN3F_WHITE);
     Paint_SetScale(7);
 
-    Paint_SetRotate(ROTATE_270);
+    Paint_SetRotate(ROTATE_0);
 
 #if 0   // show bmp
     printf("show bmp1-----------------\r\n");
@@ -295,13 +295,13 @@ int EPD_7in3f_test(void)
     free(description);
 
 
-    Paint_DrawLine(000, 150, 480, 150, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
+    Paint_DrawLine(150, 000, 150, 480, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
 
-    Paint_DrawLine(360, 000, 360, 148, EPD_7IN3F_RED, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
-    Paint_DrawLine(240, 000, 240, 148, EPD_7IN3F_BLUE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
-    Paint_DrawLine(120, 000, 120, 148, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, LINE_STYLE_SOLID);    
+    Paint_DrawLine(000, 120, 148, 120, EPD_7IN3F_RED, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(000, 240, 148, 240, EPD_7IN3F_BLUE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(000, 360, 148, 360, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, LINE_STYLE_SOLID);    
 
-    Paint_DrawLine(120, 150, 120, 800, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
+    Paint_DrawLine(150, 320, 800, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
     
 
     Paint_DrawString_EN(20, 180, "Tomorrow is the", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
