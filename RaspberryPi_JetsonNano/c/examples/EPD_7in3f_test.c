@@ -258,9 +258,9 @@ int EPD_7in3f_test(void)
 
     // 2.Drawing on the image
     printf("Drawing:BlackImage\r\n");
-    Paint_DrawPoint(10, 80, EPD_7IN3F_RED, DOT_PIXEL_1X1, DOT_STYLE_DFT);
-    Paint_DrawPoint(10, 90, EPD_7IN3F_BLUE, DOT_PIXEL_2X2, DOT_STYLE_DFT);
-    Paint_DrawPoint(10, 100, EPD_7IN3F_GREEN, DOT_PIXEL_3X3, DOT_STYLE_DFT);
+    // Paint_DrawPoint(10, 80, EPD_7IN3F_RED, DOT_PIXEL_1X1, DOT_STYLE_DFT);
+    // Paint_DrawPoint(10, 90, EPD_7IN3F_BLUE, DOT_PIXEL_2X2, DOT_STYLE_DFT);
+    // Paint_DrawPoint(10, 100, EPD_7IN3F_GREEN, DOT_PIXEL_3X3, DOT_STYLE_DFT);
 
 
 
@@ -281,22 +281,28 @@ int EPD_7in3f_test(void)
     sprintf(str, ".2%f", temp);
     static char str2[52];  // Puffer für die Zeichenkette
     sprintf(str2, "%s", description);
-    Paint_DrawString_EN(200, 0, str, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
-    Paint_DrawString_EN(400, 0, str2, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(000, 0, str, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    //Paint_DrawString_EN(400, 0, str2, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
 
     free(json);
     free(description);
 
 
+    Paint_DrawLine(00, 50, 480, 50, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(00, 750, 480, 750, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
 
 
     
-    char buffer[50];
-    time_t t = time(NULL);
-    struct tm *tm_info = localtime(&t);
-    strftime(buffer, sizeof(buffer), "%A, %d. %B %Y", tm_info);
+    // char buffer[50];
+    // time_t t = time(NULL);
+    // struct tm *tm_info = localtime(&t);
+    // strftime(buffer, sizeof(buffer), "%A, %d. %B %Y", tm_info);
     
-    Paint_DrawString_EN(200, 40, buffer, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    // Paint_DrawString_EN(000, 40, buffer, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+
+
+
+    
     // Paint_DrawString_EN(400, 20, mon, &Font16, EPD_7IN3F_BLACK, EPD_7IN3F_WHITE);
     // Paint_DrawString_EN(400, 40, day, &Font16, EPD_7IN3F_BLACK, EPD_7IN3F_WHITE);
     // Paint_DrawString_EN(400, 60, hour, &Font16, EPD_7IN3F_BLACK, EPD_7IN3F_WHITE);
