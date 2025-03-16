@@ -164,7 +164,7 @@ double get_wind_speed(const char *json) {
 
 
 
-int EPD_7in3f_test(void)
+int aei(void)
 {
     char *json = fetch_weather_data(API_KEY);
     if (json == NULL) {
@@ -197,7 +197,7 @@ int EPD_7in3f_test(void)
 
 
 
-int aei(void)
+int EPD_7in3f_test(void)
 {
     printf("EPD_7IN3F_test Demo\r\n");
     if(DEV_Module_Init()!=0){
@@ -225,7 +225,7 @@ int aei(void)
     Paint_NewImage(BlackImage, EPD_7IN3F_WIDTH, EPD_7IN3F_HEIGHT, 0, EPD_7IN3F_WHITE);
     Paint_SetScale(7);
 
-    Paint_SetRotate(ROTATE_180);
+    Paint_SetRotate(ROTATE_90);
 
 #if 0   // show bmp
     printf("show bmp1-----------------\r\n");
