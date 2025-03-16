@@ -24361,12 +24361,12 @@ int EPD_7in3f_test(void)
 
 
 #if 1   // Drawing image from char arry
-    printf("show picture 1------------------------\r\n");
-    Paint_SelectImage(BlackImage);
-    Paint_Clear(EPD_7IN3F_WHITE);
-    Paint_DrawBitMap(aImage7color);
-    EPD_7IN3F_Display(BlackImage);
-    DEV_Delay_ms(3000);
+    // printf("show picture 1------------------------\r\n");
+    // Paint_SelectImage(BlackImage);
+    // Paint_Clear(EPD_7IN3F_WHITE);
+    // Paint_DrawBitMap(aImage7color);
+    // EPD_7IN3F_Display(BlackImage);
+    // DEV_Delay_ms(3000);
 
     printf("show picture 2------------------------\r\n");
     Paint_SelectImage(BlackImage);
