@@ -275,7 +275,7 @@ int EPD_7in3f_test(void)
 
 
     static char str[52];  // Puffer für die Zeichenkette
-    sprintf(str, ".2%f°C", temp);
+    sprintf(str, ".2%d°C", temp);
     printf("Temperatur: %s\n", str);
     static char str2[52];  // Puffer für die Zeichenkette
     sprintf(str2, "%s", description);
@@ -287,11 +287,11 @@ int EPD_7in3f_test(void)
     free(description);
 
 
-    Paint_DrawLine(00, 50, 480, 50, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
-    Paint_DrawLine(00, 750, 480, 750, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
+    Paint_DrawLine(00, 50, 480, 50, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(00, 250, 480, 250, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
 
-    Paint_DrawLine(50, 00, 50, 480, EPD_7IN3F_RED, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
-    Paint_DrawLine(750, 00, 750, 480, EPD_7IN3F_RED, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
+    // Paint_DrawLine(50, 00, 50, 480, EPD_7IN3F_RED, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    // Paint_DrawLine(750, 00, 750, 480, EPD_7IN3F_RED, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
 
 
     
