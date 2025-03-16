@@ -141,15 +141,64 @@ char *get_weather_description(const char *json) {
     return description;
 }
 
+double *get_wind_speed(const char *json) {
+    cJSON *root = cJSON_Parse(json);
+    if (root == NULL) {
+        fprintf(stderr, "Fehler beim Parsen der JSON-Daten\n");
+        return -999.0;  // Fehlerwert
+    }
 
+    double *speed = -999.0;
+    cJSON *wind = cJSON_GetObjectItem(root, "wind");
+    if (wind) {
+        cJSON *desc = cJSON_GetObjectItem(wind, "speed");
+        if (desc) {
+            speed = strdup(desc->valuestring);
+        }
+    }
 
-
+    cJSON_Delete(root);
+    return speed;
+}
 
 
 
 
 
 int EPD_7in3f_test(void)
+{
+    char *json = fetch_weather_data(CITY, API_KEY);
+    if (json == NULL) {
+        fprintf(stderr, "Fehler beim Abrufen der Wetterdaten\n");
+        return 1;
+    }
+
+    double temp = get_temperature(json);
+    char *description = get_weather_description(json);
+    double windSpeed = get_wind_speed(json);
+
+    printf("Temperatur: %.2f°C\n", temp);
+    printf("Wetter: %s\n", description ? description : "Unbekannt");
+    printf("Windgeschwindigkeit: %.2f°C\n", windSpeed);
+
+
+    static char str[52];  // Puffer für die Zeichenkette
+    sprintf(strTemp, ".2%f", temp);
+    static char str2[52];  // Puffer für die Zeichenkette
+    sprintf(strDescription, "%s", description);
+    static char str[52];  // Puffer für die Zeichenkette
+    sprintf(strWindSpeed, ".2%f", windSpeed);
+
+    free(json);
+    free(description);
+}
+
+
+
+
+
+
+int aei(void)
 {
     printf("EPD_7IN3F_test Demo\r\n");
     if(DEV_Module_Init()!=0){
@@ -236,7 +285,7 @@ int EPD_7in3f_test(void)
 
 
     static char str[52];  // Puffer für die Zeichenkette
-    sprintf(str, "%f", temp);
+    sprintf(str, ".2%f", temp);
     static char str2[52];  // Puffer für die Zeichenkette
     sprintf(str2, "%s", description);
     Paint_DrawString_EN(200, 0, str, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
