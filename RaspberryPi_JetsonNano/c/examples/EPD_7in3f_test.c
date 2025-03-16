@@ -152,9 +152,9 @@ double get_wind_speed(const char *json) {
     double speed = -999.0;
     cJSON *wind = cJSON_GetObjectItem(root, "wind");
     if (wind) {
-        cJSON *desc = cJSON_GetObjectItem(wind, "speed");
-        if (desc) {
-            speed = strdup(desc->valuestring);
+        cJSON *speed_json = cJSON_GetObjectItem(wind, "speed");
+        if (speed_json) {
+            speed = speed_json->valuedouble;
         }
     }
 
