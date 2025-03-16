@@ -229,13 +229,28 @@ int EPD_7in3f_test(void)
 
     Paint_SetRotate(ROTATE_180);
 
-#if 0   // show bmp
+#if 1   // show bmp
     printf("show bmp1-----------------\r\n");
     Paint_SelectImage(BlackImage);
     Paint_Clear(EPD_7IN3F_WHITE);
-    GUI_ReadBmp_RGB_7Color("./pic/7in3e.bmp", 0, 0);
+    GUI_ReadBmp_RGB_7Color("./pic/3.bmp", 0, 0);
     EPD_7IN3F_Display(BlackImage);
     DEV_Delay_ms(3000);
+
+    printf("show bmp1-----------------\r\n");
+    Paint_SelectImage(BlackImage);
+    Paint_Clear(EPD_7IN3F_WHITE);
+    GUI_ReadBmp_RGB_7Color("./pic/2.bmp", 0, 0);
+    EPD_7IN3F_Display(BlackImage);
+    DEV_Delay_ms(3000);
+
+
+    // printf("show bmp1-----------------\r\n");
+    // Paint_SelectImage(BlackImage);
+    // Paint_Clear(EPD_7IN3F_WHITE);
+    // GUI_ReadBmp_RGB_7Color("./pic/7in3e.bmp", 0, 0);
+    // EPD_7IN3F_Display(BlackImage);
+    // DEV_Delay_ms(3000);
 
     
     // printf("show bmp2-----------------\r\n");
@@ -251,7 +266,7 @@ int EPD_7in3f_test(void)
     // EPD_7IN3F_Display(BlackImage);
     // DEV_Delay_ms(3000);
 #endif
-#if 1   // Drawing on the image
+#if 0   // Drawing on the image
 
     // 1.Fetching weather data
     char *json = fetch_weather_data(API_KEY);
