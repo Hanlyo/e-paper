@@ -227,7 +227,7 @@ int EPD_7in3f_test(void)
     Paint_NewImage(BlackImage, EPD_7IN3F_WIDTH, EPD_7IN3F_HEIGHT, 0, EPD_7IN3F_WHITE);
     Paint_SetScale(7);
 
-    Paint_SetRotate(ROTATE_0);
+    Paint_SetRotate(ROTATE_270);
 
 #if 0   // show bmp
     printf("show bmp1-----------------\r\n");
@@ -304,7 +304,7 @@ int EPD_7in3f_test(void)
     Paint_DrawLine(150, 320, 800, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
     
 
-    Paint_DrawString_EN(20, 180, "Tomorrow is the", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
+    Paint_DrawString_EN(170, 340, "Tomorrow is the biggest lie we tell ourselves.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
 
 
     // Paint_DrawString_EN(20, 180, "Tomorrow is the biggest lie we tell ourselves.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
