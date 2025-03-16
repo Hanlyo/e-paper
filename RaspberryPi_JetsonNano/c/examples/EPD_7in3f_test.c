@@ -182,11 +182,11 @@ int EPD_7in3f_test(void)
     printf("Windgeschwindigkeit: %.2f°C\n", windSpeed);
 
 
-    static char str[52];  // Puffer für die Zeichenkette
+    static char strTemp[52];  // Puffer für die Zeichenkette
     sprintf(strTemp, ".2%f", temp);
-    static char str2[52];  // Puffer für die Zeichenkette
+    static char strDescription[52];  // Puffer für die Zeichenkette
     sprintf(strDescription, "%s", description);
-    static char str[52];  // Puffer für die Zeichenkette
+    static char strWindSpeed[52];  // Puffer für die Zeichenkette
     sprintf(strWindSpeed, ".2%f", windSpeed);
 
     free(json);
