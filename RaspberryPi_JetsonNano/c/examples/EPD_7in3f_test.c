@@ -39,12 +39,10 @@
 
 
 #define API_KEY "3128d4668dffb45c2e2c08d9f2c52d82"
-#define CITY "Berlin"
 
+#define URL_FORMAT "https://api.openweathermap.org/data/2.5/weather?lat=51.511532&lon=7.093030&appid=%s&units=metric&lang=de"
+#define FORECAST_URL_FORMAT "https://api.openweathermap.org/data/2.5/forecast?lat=51.511532&lon=7.093030&appid=%s&units=metric&lang=de"
 
-
-
-#define URL_FORMAT "http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric&units=metric&lang=de"
 
 struct MemoryStruct {
     char *memory;
@@ -66,7 +64,7 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
     return realsize;
 }
 
-char *fetch_weather_data(const char *city, const char *api_key) {
+char *fetch_weather_data(const char *api_key) {
     CURL *curl;
     CURLcode res;
     struct MemoryStruct chunk;
@@ -75,7 +73,7 @@ char *fetch_weather_data(const char *city, const char *api_key) {
     chunk.size = 0;
 
     char url[256];
-    snprintf(url, sizeof(url), URL_FORMAT, city, api_key);
+    snprintf(url, sizeof(url), URL_FORMAT, api_key);
 
     curl_global_init(CURL_GLOBAL_ALL);
     curl = curl_easy_init();
@@ -180,7 +178,7 @@ void EPD_7in3f_test(void)
 
     printf("Temperatur: %.2f°C\n", temp);
     printf("Wetter: %s\n", description ? description : "Unbekannt");
-    printf("Windgeschwindigkeit: %.2f°C\n", windSpeed);
+    printf("Windgeschwindigkeit: %.2f m/s\n", windSpeed);
 
 
     static char strTemp[52];  // Puffer für die Zeichenkette
