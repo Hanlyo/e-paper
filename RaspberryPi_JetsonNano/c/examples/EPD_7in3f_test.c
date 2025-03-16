@@ -142,7 +142,7 @@ char *get_weather_description(const char *json) {
     return description;
 }
 
-double *get_wind_speed(const char *json) {
+double get_wind_speed(const char *json) {
     cJSON *root = cJSON_Parse(json);
     if (root == NULL) {
         fprintf(stderr, "Fehler beim Parsen der JSON-Daten\n");
