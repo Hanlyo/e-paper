@@ -227,7 +227,7 @@ int EPD_7in3f_test(void)
     Paint_NewImage(BlackImage, EPD_7IN3F_WIDTH, EPD_7IN3F_HEIGHT, 0, EPD_7IN3F_WHITE);
     Paint_SetScale(7);
 
-    Paint_SetRotate(ROTATE_270);
+    Paint_SetRotate(ROTATE_180);
 
 #if 0   // show bmp
     printf("show bmp1-----------------\r\n");
