@@ -38,7 +38,8 @@
 #include <cjson/cJSON.h>
 
 
-
+#define API_KEY "3128d4668dffb45c2e2c08d9f2c52d82"
+#define CITY "Berlin"
 
 
 
@@ -250,12 +251,6 @@ int aei(void)
     // EPD_7IN3F_Display(BlackImage);
     // DEV_Delay_ms(3000);
 #endif
-
-
-#define API_KEY "3128d4668dffb45c2e2c08d9f2c52d82"
-#define CITY "Berlin"
-
-
 #if 1   // Drawing on the image
 
     // 1.Select Image
