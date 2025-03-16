@@ -295,12 +295,18 @@ int EPD_7in3f_test(void)
 
     Paint_DrawLine(000, 150, 480, 150, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
 
-    Paint_DrawLine(120, 000, 120, 150, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
-    Paint_DrawLine(240, 000, 240, 150, EPD_7IN3F_BLUE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
-    Paint_DrawLine(360, 000, 360, 150, EPD_7IN3F_RED, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(360, 000, 360, 148, EPD_7IN3F_RED, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(240, 000, 240, 148, EPD_7IN3F_BLUE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(120, 000, 120, 148, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, LINE_STYLE_SOLID);    
 
-    Paint_DrawLine(330, 150, 330, 800, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
+    Paint_DrawLine(120, 150, 120, 800, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
     
+    Paint_DrawString_EN(20, 180, "Tomorrow is the biggest lie we tell ourselves.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(40, 180, "Because tomorrow never actually comes.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(60, 180, "Only today exists. And today is when you", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(80, 180, "either keep the streak alive — or let it die.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+
+
     // Paint_DrawLine(001, 400, 479, 400, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
     // Paint_DrawLine(001, 500, 479, 500, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
     // Paint_DrawLine(001, 600, 479, 600, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
