@@ -358,11 +358,20 @@ parameter:
 void Paint_DrawLine(UWORD Xstart, UWORD Ystart, UWORD Xend, UWORD Yend,
                     UWORD Color, DOT_PIXEL Line_width, LINE_STYLE Line_Style)
 {
-    // if (Xstart > Paint.Width || Ystart > Paint.Height ||
-    //     Xend > Paint.Width || Yend > Paint.Height) {
-    //     Debug("Paint_DrawLine Input exceeds the normal display range\r\n");
-    //     return;
-    // }
+    if (Paint.Rotate == ROTATE_90 || Paint.Rotate == ROTATE_270) {
+        if (Xstart > Paint.Height || Ystart > Paint.Width ||
+            Xend > Paint.Height || Yend > Paint.Width) {
+            Debug("Paint_DrawLine Input exceeds the normal display range\r\n");
+            return;
+        }
+    } else if (Paint.Rotate == ROTATE_0 || Paint.Rotate == ROTATE_180) {
+        if (Xstart > Paint.Width || Ystart > Paint.Height ||
+            Xend > Paint.Width || Yend > Paint.Height) {
+            Debug("Paint_DrawLine Input exceeds the normal display range\r\n");
+            return;
+        }    
+    }
+    
 
     UWORD Xpoint = Xstart;
     UWORD Ypoint = Ystart;
