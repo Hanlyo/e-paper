@@ -188,10 +188,18 @@ parameter:
 ******************************************************************************/
 void Paint_SetPixel(UWORD Xpoint, UWORD Ypoint, UWORD Color)
 {
-    if(Xpoint > Paint.Width || Ypoint > Paint.Height){
-        Debug("Exceeding display boundaries\r\n");
-        return;
-    }      
+    if (Paint.Rotate == ROTATE_90 || Paint.Rotate == ROTATE_270) {
+        if(Xpoint > Paint.Height || Ypoint > Paint.Width){
+            Debug("Exceeding display boundaries\r\n");
+            return;
+        }
+    } else if (Paint.Rotate == ROTATE_0 || Paint.Rotate == ROTATE_180) {
+        if(Xpoint > Paint.Width || Ypoint > Paint.Height){
+            Debug("Exceeding display boundaries\r\n");
+            return;
+        }
+    }
+    
     UWORD X, Y;
     switch(Paint.Rotate) {
     case 0:
