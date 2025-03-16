@@ -166,7 +166,7 @@ double get_wind_speed(const char *json) {
 
 void EPD_7in3f_test(void)
 {
-    char *json = fetch_weather_data(CITY, API_KEY);
+    char *json = fetch_weather_data(API_KEY);
     if (json == NULL) {
         fprintf(stderr, "Fehler beim Abrufen der Wetterdaten\n");
         return 1;
@@ -264,7 +264,7 @@ int aei(void)
 
 
 
-    char *json = fetch_weather_data(CITY, API_KEY);
+    char *json = fetch_weather_data(API_KEY);
     if (json == NULL) {
         fprintf(stderr, "Fehler beim Abrufen der Wetterdaten\n");
         return 1;
