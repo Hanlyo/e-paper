@@ -274,23 +274,23 @@ int EPD_7in3f_test(void)
     char *description = get_weather_description(json);
 
 
-    static char str[52];  // Puffer für die Zeichenkette
-    sprintf(str, ".2%f°C", temp);
-    const char *temp_str = str;
-    printf("Temperatur: %s\n", temp_str);
-    Paint_DrawString_EN(000, 0, temp_str, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    // static char str[52];  // Puffer für die Zeichenkette
+    // sprintf(str, ".2%f°C", temp);
+    // const char *temp_str = str;
+    // printf("Temperatur: %s\n", temp_str);
+    // Paint_DrawString_EN(001, 0, temp_str, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
 
-    static char str2[52];  // Puffer für die Zeichenkette
-    sprintf(str2, "%s", description);
-    printf("Wetter: %s\n", str2 ? str2 : "Unbekannt");
+    // static char str2[52];  // Puffer für die Zeichenkette
+    // sprintf(str2, "%s", description);
+    // printf("Wetter: %s\n", str2 ? str2 : "Unbekannt");
     //Paint_DrawString_EN(400, 0, str2, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
 
     free(json);
     free(description);
 
 
-    Paint_DrawLine(00, 50, 480, 50, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
-    // Paint_DrawLine(00, 250, 480, 250, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(001, 50, 480, 50, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(00, 250, 480, 250, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
 
     // Paint_DrawLine(50, 00, 50, 480, EPD_7IN3F_RED, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
     // Paint_DrawLine(750, 00, 750, 480, EPD_7IN3F_RED, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
