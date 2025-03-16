@@ -166,7 +166,7 @@ double get_wind_speed(const char *json) {
 
 
 
-int EPD_7in3f_test(void)
+void EPD_7in3f_test(void)
 {
     char *json = fetch_weather_data(CITY, API_KEY);
     if (json == NULL) {
