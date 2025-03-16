@@ -320,9 +320,16 @@ parameter:
 void Paint_DrawPoint(UWORD Xpoint, UWORD Ypoint, UWORD Color,
                      DOT_PIXEL Dot_Pixel, DOT_STYLE Dot_Style)
 {
-    if (Xpoint > Paint.Width || Ypoint > Paint.Height) {
-        Debug("Paint_DrawPoint Input exceeds the normal display range\r\n");
-        return;
+    if (Paint.Rotate == ROTATE_90 || Paint.Rotate == ROTATE_270) {
+        if (Xpoint > Paint.Height || Ypoint > Paint.Width) {
+            Debug("Paint_DrawPoint Input exceeds the normal display range\r\n");
+            return;
+        }
+    } else if (Paint.Rotate == ROTATE_0 || Paint.Rotate == ROTATE_180) {
+        if (Xpoint > Paint.Width || Ypoint > Paint.Height) {
+            Debug("Paint_DrawPoint Input exceeds the normal display range\r\n");
+            return;
+        }
     }
 
     int16_t XDir_Num , YDir_Num;
