@@ -227,7 +227,7 @@ int EPD_7in3f_test(void)
     Paint_NewImage(BlackImage, EPD_7IN3F_WIDTH, EPD_7IN3F_HEIGHT, 0, EPD_7IN3F_WHITE);
     Paint_SetScale(7);
 
-    Paint_SetRotate(ROTATE_90);
+    Paint_SetRotate(ROTATE_270);
 
 #if 0   // show bmp
     printf("show bmp1-----------------\r\n");
@@ -266,6 +266,8 @@ int EPD_7in3f_test(void)
     static char str[52];  // Puffer für die Zeichenkette
     sprintf(str, ".2%f°C", temp);
     const char *temp_str = str;
+    printf("Temperatur: %s\n", temp);
+    printf("Temperatur: %s\n", str);
     printf("Temperatur: %s\n", temp_str);
 
     static char str2[52];  // Puffer für die Zeichenkette
