@@ -149,7 +149,7 @@ double *get_wind_speed(const char *json) {
         return -999.0;  // Fehlerwert
     }
 
-    double *speed = -999.0;
+    double speed = -999.0;
     cJSON *wind = cJSON_GetObjectItem(root, "wind");
     if (wind) {
         cJSON *desc = cJSON_GetObjectItem(wind, "speed");
