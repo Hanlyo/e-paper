@@ -334,11 +334,17 @@ int EPD_7in3f_test(void)
     int i;
     for (i=1;i<32;i++) {
         int tagDerWoche = (i%7)==0?7:(i%7);
-        int woche = i/7;
+        int woche = ((i-1)/7)+1;
         x = 150 + (90*tagDerWoche) - 45;
         y = 30 + (55*woche) - 25;
-        printf("%d %d\n", x, y);
-        Paint_DrawString_EN(x, y, "1", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
+
+        static char numStr[52];  // Puffer für die Zeichenkette
+        sprintf(numStr, ".2%f°C", i);
+
+        printf("%d %d %d %d\n", x, y, i, numStr);
+
+        
+        Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
     }
 
 
