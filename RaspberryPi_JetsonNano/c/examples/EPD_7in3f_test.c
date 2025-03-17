@@ -339,7 +339,7 @@ int EPD_7in3f_test(void)
         y = 30 + (55*woche) - 25;
 
         static char numStr[52];  // Puffer für die Zeichenkette
-        sprintf(numStr, ".2%d", i);
+        sprintf(numStr, "%d", i);
 
         printf("%d %d\n", x, y);
         printf("%d\n", i);
