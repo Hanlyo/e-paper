@@ -295,12 +295,15 @@ int EPD_7in3f_test(void)
     free(description);
 
 
+    // senkrechte Linie links
     Paint_DrawLine(150, 000, 150, 480, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
 
+    // horizontale Linien links
     Paint_DrawLine(000, 120, 148, 120, EPD_7IN3F_RED, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
     Paint_DrawLine(000, 240, 148, 240, EPD_7IN3F_BLUE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
     Paint_DrawLine(000, 360, 148, 360, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, LINE_STYLE_SOLID);    
 
+    // horizontale Linie unten
     Paint_DrawLine(150, 320, 800, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
     
     // font20 -> 14 Pixel breit
@@ -310,6 +313,12 @@ int EPD_7in3f_test(void)
     Paint_DrawString_EN(160, 360, "Because tomorrow never actually comes.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
     Paint_DrawString_EN(160, 380, "Only today exists. And today is when you", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
     Paint_DrawString_EN(160, 400, "either keep the streak alive - or let it die.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+
+    // Monat oben
+    // font24 -> 17 Pixel breit
+    // (800 - 160) / 2 = 320 <- Mitte
+    // 320 - (2*17) = 294
+    Paint_DrawString_EN(320-(2*17), 5, "März", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
 
 
     // Paint_DrawLine(001, 400, 479, 400, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
