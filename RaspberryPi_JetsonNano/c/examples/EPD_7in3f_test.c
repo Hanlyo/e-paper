@@ -347,13 +347,13 @@ int EPD_7in3f_test(void)
 
     // Name der Tage anzeigen
     // TODO
-    Paint_DrawString_EN(40, 195, "Mo", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    Paint_DrawString_EN(40, 285, "Di", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    Paint_DrawString_EN(40, 375, "Mi", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    Paint_DrawString_EN(40, 465, "Do", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    Paint_DrawString_EN(40, 555, "Fr", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    Paint_DrawString_EN(40, 645, "Sa", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    Paint_DrawString_EN(40, 735, "So", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(195, 40, "Mo", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(285, 40, "Di", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(375, 40, "Mi", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(465, 40, "Do", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(555, 40, "Fr", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(645, 40, "Sa", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(735, 40, "So", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
 
     // Tage mitte // TODO vllt nur aktuelle (nächste Woche anzeigen)
     // 800 - 150 = 650 Pixel stehen zur verfügung
@@ -365,10 +365,10 @@ int EPD_7in3f_test(void)
     int y = 0;
     int firstWeekdayOfMonth = getFirstWeekdayOfMonth();
     int currentDay = getCurrentDayOfMonth();
+    int daysInMonth = 31;
 
-    int i;
-    for (i=firstWeekdayOfMonth-1;i<32+firstWeekdayOfMonth;i++) {
-
+    int i=1;
+    for (i=i+firstWeekdayOfMonth; i<daysInMonth+firstWeekdayOfMonth; i++) {
         int tagDerWoche = (i%7)==0?7:(i%7);
         int woche = ((i-1)/7)+1;
         x = 150 + (90*tagDerWoche) - 45;
@@ -376,7 +376,7 @@ int EPD_7in3f_test(void)
 
         static char numStr[52];  // Puffer für die Zeichenkette
         sprintf(numStr, "%d", i-firstWeekdayOfMonth);
-        printf("%d %d %s\n", x, y, numStr);
+        // printf("%d %d %s\n", x, y, numStr);
     
         if (i-firstWeekdayOfMonth == currentDay) {
             // aktuellen Tag hervorheben
