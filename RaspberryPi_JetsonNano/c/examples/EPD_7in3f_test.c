@@ -382,7 +382,7 @@ int EPD_7in3f_test(void)
         if (temp == currentDay) {
             // aktuellen Tag hervorheben
             // font24: 24 Pixel hoch und 17 Pixel breit
-            Paint_DrawCircle(x+10, y+10, 30, EPD_7IN3F_ORANGE, DOT_PIXEL_8X8, DRAW_FILL_FULL);
+            Paint_DrawCircle(x+13, y+13, 26, EPD_7IN3F_ORANGE, DOT_PIXEL_8X8, DRAW_FILL_FULL);
             Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_ORANGE, EPD_7IN3F_WHITE);
         } else {
             Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
