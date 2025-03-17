@@ -338,7 +338,7 @@ int EPD_7in3f_test(void)
         int tagDerWoche = (i%7)==0?7:(i%7);
         int woche = i/7;
         x = 150 + (90*tagDerWoche) - 45;
-        y = 30 + (55*woche) - 25
+        y = 30 + (55*woche) - 25;
         Paint_DrawString_EN(441, 5, "1", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
     }
 
