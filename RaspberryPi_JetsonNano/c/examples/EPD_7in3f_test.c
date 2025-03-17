@@ -251,7 +251,7 @@ int EPD_7in3f_test(void)
     EPD_7IN3F_Display(BlackImage);
     DEV_Delay_ms(3000);
 #endif
-#if 1   // Drawing on the image
+#if 0   // Drawing on the image
 
     // 1.Fetching weather data
     char *json = fetch_weather_data(API_KEY);
@@ -340,11 +340,7 @@ int EPD_7in3f_test(void)
 
         static char numStr[52];  // Puffer für die Zeichenkette
         sprintf(numStr, "%d", i);
-
-        printf("%d %d\n", x, y);
-        printf("%d\n", i);
-        printf("%s\n", numStr);
-
+        printf("%d %d %s\n", x, y, numStr);
         
         Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
     }
@@ -406,6 +402,19 @@ int EPD_7in3f_test(void)
     DEV_Delay_ms(3000);
 #endif
 
+
+#if 1 // test 
+    time_t t = time(NULL);
+    struct tm *now = localtime(&t);
+
+    // Ersten Tag des Monats setzen
+    now->tm_mday = 1;
+
+    // Normalisieren (mktime berechnet die Wochentagsnummer)
+    mktime(now);
+
+    printf("%d\n", now->tm_wday);
+#endif
 
 #if 0   // Drawing image from char arry
     // printf("show picture 1------------------------\r\n");
