@@ -368,7 +368,7 @@ int EPD_7in3f_test(void)
     int daysInMonth = 31;
 
     int i;
-    for (i=firstWeekdayOfMonth; i<=daysInMonth+firstWeekdayOfMonth; i++) {
+    for (i=firstWeekdayOfMonth; i<daysInMonth+firstWeekdayOfMonth; i++) {
         int tagDerWoche = (i%7)==0?7:(i%7);
         int woche = ((i-1)/7)+1;
         x = 150 + (90*tagDerWoche) - 45;
@@ -381,7 +381,8 @@ int EPD_7in3f_test(void)
     
         if (temp == currentDay) {
             // aktuellen Tag hervorheben
-            Paint_DrawCircle(x+5, y+5, 20, EPD_7IN3F_ORANGE, DOT_PIXEL_8X8, DRAW_FILL_FULL);
+            // font24: 24 Pixel hoch und 17 Pixel breit
+            Paint_DrawCircle(x+10, y+10, 20, EPD_7IN3F_ORANGE, DOT_PIXEL_8X8, DRAW_FILL_FULL);
             Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_ORANGE, EPD_7IN3F_WHITE);
         } else {
             Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
