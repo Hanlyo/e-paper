@@ -163,6 +163,21 @@ double get_wind_speed(const char *json) {
 }
 
 
+int getFirstWeekdayOfMonth() {
+    time_t t = time(NULL);
+    struct tm *now = localtime(&t);
+
+    // Ersten Tag des Monats setzen
+    now->tm_mday = 1;
+
+    // Normalisieren (mktime berechnet die Wochentagsnummer)
+    mktime(now);
+
+    printf("%d\n", now->tm_wday);
+
+    return now->tm_wday;
+}
+
 
 
 
@@ -251,7 +266,7 @@ int EPD_7in3f_test(void)
     EPD_7IN3F_Display(BlackImage);
     DEV_Delay_ms(3000);
 #endif
-#if 0   // Drawing on the image
+#if 1   // Drawing on the image
 
     // 1.Fetching weather data
     char *json = fetch_weather_data(API_KEY);
@@ -330,9 +345,10 @@ int EPD_7in3f_test(void)
     // starten zu zeichnen: 30 / 150
     int x = 0;
     int y = 0;
+    int firstWeekdayOfMonth = getFirstWeekdayOfMonth();
 
     int i;
-    for (i=1;i<32;i++) {
+    for (i=firstWeekdayOfMonth;i<32+firstWeekdayOfMonth;i++) {
         int tagDerWoche = (i%7)==0?7:(i%7);
         int woche = ((i-1)/7)+1;
         x = 150 + (90*tagDerWoche) - 45;
@@ -341,7 +357,7 @@ int EPD_7in3f_test(void)
         static char numStr[52];  // Puffer für die Zeichenkette
         sprintf(numStr, "%d", i);
         printf("%d %d %s\n", x, y, numStr);
-        
+
         Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
     }
 
@@ -403,17 +419,8 @@ int EPD_7in3f_test(void)
 #endif
 
 
-#if 1 // test 
-    time_t t = time(NULL);
-    struct tm *now = localtime(&t);
+#if 0 // test 
 
-    // Ersten Tag des Monats setzen
-    now->tm_mday = 1;
-
-    // Normalisieren (mktime berechnet die Wochentagsnummer)
-    mktime(now);
-
-    printf("%d\n", now->tm_wday);
 #endif
 
 #if 0   // Drawing image from char arry
