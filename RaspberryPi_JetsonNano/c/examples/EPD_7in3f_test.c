@@ -316,14 +316,32 @@ int EPD_7in3f_test(void)
 
     // Monat oben
     // font24 -> 17 Pixel breit
-    // (800 - 150) / 2 = 325 <- Mitte
-    // 325 - (2*17)
-    // 325 - 34 = 291
-    Paint_DrawString_EN(291, 5, "Maerz", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
+    // 800 - 150 = 650 Pixel stehen zur verfügung
+    // 150 + ((800 - 150) / 2) = 475 <- Mitte
+    // 475 - (2*17)
+    // 475 - 34 = 441
+    Paint_DrawString_EN(441, 5, "Maerz", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
 
     // Tage mitte
-    // 800 - 150 = 650 Pixel
-    // 480 - 150
+    // 800 - 150 = 650 Pixel stehen zur verfügung
+    // 650 / 7 = 91 Pixel pro Tag
+    // 480 - 180 = 300 Pixel stehen zur verfügung
+    // 300 / 6 = 50 Pixel pro Woche
+    // starten zu zeichnen: 30 / 150
+    int tag = 1;
+    int start = 6;
+    int x = 0;
+    int y = 0;
+
+    int i;
+    for (i=1;i<32;i++) {
+        int tagDerWoche = (i%7)==0?7:(i%7);
+        int woche = i/7;
+        x = 150 + (90*tagDerWoche) - 45;
+        y = 30 + (55*woche) - 25
+        Paint_DrawString_EN(441, 5, "1", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
+    }
+
 
     // Paint_DrawLine(001, 400, 479, 400, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
     // Paint_DrawLine(001, 500, 479, 500, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
