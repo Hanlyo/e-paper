@@ -344,7 +344,18 @@ int EPD_7in3f_test(void)
     // 475 - 34 = 441
     Paint_DrawString_EN(441, 5, "Maerz", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
 
-    // Tage mitte
+
+    // Name der Tage anzeigen
+    // TODO
+    Paint_DrawString_EN(40, 195, "Mo", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(40, 285, "Di", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(40, 375, "Mi", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(40, 465, "Do", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(40, 555, "Fr", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(40, 645, "Sa", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(40, 735, "So", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+
+    // Tage mitte // TODO vllt nur aktuelle (nächste Woche anzeigen)
     // 800 - 150 = 650 Pixel stehen zur verfügung
     // 650 / 7 = 91 Pixel pro Tag
     // 480 - 180 = 300 Pixel stehen zur verfügung
