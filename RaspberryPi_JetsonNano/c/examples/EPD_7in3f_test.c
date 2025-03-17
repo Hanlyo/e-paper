@@ -38,7 +38,7 @@
 #include <cjson/cJSON.h>
 
 
-#define API_KEY "3128d4668dffb45c2e2c08d9f2c52d82"
+#define API_KEY ""
 
 #define URL_FORMAT "https://api.openweathermap.org/data/2.5/weather?lat=51.511532&lon=7.093030&appid=%s&units=metric&lang=de"
 #define FORECAST_URL_FORMAT "https://api.openweathermap.org/data/2.5/forecast?lat=51.511532&lon=7.093030&appid=%s&units=metric&lang=de"
@@ -251,7 +251,7 @@ int EPD_7in3f_test(void)
 
     Paint_SetRotate(ROTATE_180);
 
-#if 1   // show bmp
+#if 0   // show bmp
     printf("show bmp1-----------------\r\n");
     Paint_SelectImage(BlackImage);
     Paint_Clear(EPD_7IN3F_WHITE);
@@ -273,28 +273,28 @@ int EPD_7in3f_test(void)
     EPD_7IN3F_Display(BlackImage);
     DEV_Delay_ms(3000);
 #endif
-#if 0   // Drawing on the image
+#if 1   // Drawing on the image
 
     // 1.Fetching weather data
-    char *json = fetch_weather_data(API_KEY);
-    if (json == NULL) {
-        fprintf(stderr, "Fehler beim Abrufen der Wetterdaten\n");
-        return 1;
-    }
+    // char *json = fetch_weather_data(API_KEY);
+    // if (json == NULL) {
+    //     fprintf(stderr, "Fehler beim Abrufen der Wetterdaten\n");
+    //     return 1;
+    // }
 
-    double temp = get_temperature(json);
-    char *description = get_weather_description(json);
+    // double temp = get_temperature(json);
+    // char *description = get_weather_description(json);
 
-    static char str[52];  // Puffer für die Zeichenkette
-    sprintf(str, ".2%f°C", temp);
-    const char *temp_str = str;
-    printf("Temperatur: %s\n", temp);
-    printf("Temperatur: %s\n", str);
-    printf("Temperatur: %s\n", temp_str);
+    // static char str[52];  // Puffer für die Zeichenkette
+    // sprintf(str, ".2%f°C", temp);
+    // const char *temp_str = str;
+    // printf("Temperatur: %s\n", temp);
+    // printf("Temperatur: %s\n", str);
+    // printf("Temperatur: %s\n", temp_str);
 
-    static char str2[52];  // Puffer für die Zeichenkette
-    sprintf(str2, "%s", description);
-    printf("Wetter: %s\n", str2 ? str2 : "Unbekannt");
+    // static char str2[52];  // Puffer für die Zeichenkette
+    // sprintf(str2, "%s", description);
+    // printf("Wetter: %s\n", str2 ? str2 : "Unbekannt");
 
 
 
