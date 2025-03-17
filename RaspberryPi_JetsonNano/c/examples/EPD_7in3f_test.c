@@ -229,7 +229,7 @@ int EPD_7in3f_test(void)
 
     Paint_SetRotate(ROTATE_180);
 
-#if 1   // show bmp
+#if 0   // show bmp
     printf("show bmp1-----------------\r\n");
     Paint_SelectImage(BlackImage);
     Paint_Clear(EPD_7IN3F_WHITE);
@@ -251,7 +251,7 @@ int EPD_7in3f_test(void)
     EPD_7IN3F_Display(BlackImage);
     DEV_Delay_ms(3000);
 #endif
-#if 0   // Drawing on the image
+#if 1   // Drawing on the image
 
     // 1.Fetching weather data
     char *json = fetch_weather_data(API_KEY);
@@ -304,13 +304,10 @@ int EPD_7in3f_test(void)
     Paint_DrawLine(150, 320, 800, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
     
 
-    Paint_DrawString_EN(170, 340, "Tomorrow is the biggest lie we tell ourselves.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
-
-
-    // Paint_DrawString_EN(20, 180, "Tomorrow is the biggest lie we tell ourselves.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
-    // Paint_DrawString_EN(40, 180, "Because tomorrow never actually comes.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
-    // Paint_DrawString_EN(60, 180, "Only today exists. And today is when you", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
-    // Paint_DrawString_EN(80, 180, "either keep the streak alive — or let it die.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(160, 340, "Tomorrow is the biggest lie we tell ourselves.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
+    Paint_DrawString_EN(160, 360, "Because tomorrow never actually comes.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(160, 380, "Only today exists. And today is when you", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(160, 400, "either keep the streak alive — or let it die.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
 
 
     // Paint_DrawLine(001, 400, 479, 400, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
