@@ -368,8 +368,8 @@ int EPD_7in3f_test(void)
     int daysInMonth = 31;
 
     int i;
-    for (i=firstWeekdayOfMonth; i<daysInMonth+firstWeekdayOfMonth; i++) {
-        int temp = i+1;
+    for (i=firstWeekdayOfMonth; i<=daysInMonth+firstWeekdayOfMonth; i++) {
+        int temp = i;
         int tagDerWoche = (temp%7)==0?7:(temp%7);
         int woche = ((temp-1)/7)+1;
         x = 150 + (90*tagDerWoche) - 45;
