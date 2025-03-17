@@ -352,10 +352,10 @@ int EPD_7in3f_test(void)
         int tagDerWoche = (i%7)==0?7:(i%7);
         int woche = ((i-1)/7)+1;
         x = 150 + (90*tagDerWoche) - 45;
-        y = 30 + (55*woche) - 25;
+        y = 30 + (50*woche) - 25;
 
         static char numStr[52];  // Puffer für die Zeichenkette
-        sprintf(numStr, "%d", i);
+        sprintf(numStr, "%d", i-firstWeekdayOfMonth);
         printf("%d %d %s\n", x, y, numStr);
 
         Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
