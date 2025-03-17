@@ -356,7 +356,8 @@ int EPD_7in3f_test(void)
     int currentDay = getCurrentDayOfMonth();
 
     int i;
-    for (i=firstWeekdayOfMonth;i<32+firstWeekdayOfMonth;i++) {
+    for (i=firstWeekdayOfMonth-1;i<32+firstWeekdayOfMonth;i++) {
+
         int tagDerWoche = (i%7)==0?7:(i%7);
         int woche = ((i-1)/7)+1;
         x = 150 + (90*tagDerWoche) - 45;
@@ -368,10 +369,11 @@ int EPD_7in3f_test(void)
     
         if (i-firstWeekdayOfMonth == currentDay) {
             // aktuellen Tag hervorheben
-            Paint_DrawCircle(x+5, y+5, 20, EPD_7IN3F_BLACK, DOT_PIXEL_8X8, DRAW_FILL_FULL);        
+            Paint_DrawCircle(x+5, y+5, 20, EPD_7IN3F_ORANGE, DOT_PIXEL_8X8, DRAW_FILL_FULL);
+            Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_ORANGE, EPD_7IN3F_WHITE);
+        } else {
+            Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
         }
-
-        Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
     }
 
 
@@ -492,8 +494,8 @@ int EPD_7in3f_test(void)
     DEV_Delay_ms(3000);
 #endif
 
-    printf("Clear...\r\n");
-    EPD_7IN3F_Clear(EPD_7IN3F_WHITE);
+    // printf("Clear...\r\n");
+    // EPD_7IN3F_Clear(EPD_7IN3F_WHITE);
 
     printf("Goto Sleep...\r\n");
     EPD_7IN3F_Sleep();
