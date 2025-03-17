@@ -368,7 +368,7 @@ int EPD_7in3f_test(void)
     
         if (i-firstWeekdayOfMonth == currentDay) {
             // aktuellen Tag hervorheben
-            Paint_DrawCircle(x, y, 20, EPD_7IN3F_BLACK, DOT_PIXEL_8X8, DRAW_FILL_FULL);        
+            Paint_DrawCircle(x+5, y+5, 20, EPD_7IN3F_BLACK, DOT_PIXEL_8X8, DRAW_FILL_FULL);        
         }
 
         Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
