@@ -233,38 +233,23 @@ int EPD_7in3f_test(void)
     printf("show bmp1-----------------\r\n");
     Paint_SelectImage(BlackImage);
     Paint_Clear(EPD_7IN3F_WHITE);
-    GUI_ReadBmp_RGB_7Color("./pic/3.bmp", 0, 0);
+    GUI_ReadBmp_RGB_7Color("./myPic/test1.bmp", 0, 0);
     EPD_7IN3F_Display(BlackImage);
     DEV_Delay_ms(3000);
 
-    printf("show bmp1-----------------\r\n");
+    printf("show bmp2-----------------\r\n");
     Paint_SelectImage(BlackImage);
     Paint_Clear(EPD_7IN3F_WHITE);
-    GUI_ReadBmp_RGB_7Color("./pic/2.bmp", 0, 0);
+    GUI_ReadBmp_RGB_7Color("./myPic/2normal.bmp", 0, 0);
     EPD_7IN3F_Display(BlackImage);
     DEV_Delay_ms(3000);
-
-
-    // printf("show bmp1-----------------\r\n");
-    // Paint_SelectImage(BlackImage);
-    // Paint_Clear(EPD_7IN3F_WHITE);
-    // GUI_ReadBmp_RGB_7Color("./pic/7in3e.bmp", 0, 0);
-    // EPD_7IN3F_Display(BlackImage);
-    // DEV_Delay_ms(3000);
-
     
-    // printf("show bmp2-----------------\r\n");
-    // Paint_SelectImage(BlackImage);
-    // Paint_Clear(EPD_7IN3F_WHITE);
-    // GUI_ReadBmp_16Gray("./pic/4in2_Scale_2.bmp", 0, 0);
-    // EPD_7IN3F_Display(BlackImage);
-    // DEV_Delay_ms(3000);
-
-    // printf("show bmp3------------------------\r\n");
-    // Paint_SelectImage(BlackImage);
-    // GUI_ReadBmp_RGB_7Color("./pic/7in3f1.bmp", 0, 0);
-    // EPD_7IN3F_Display(BlackImage);
-    // DEV_Delay_ms(3000);
+    printf("show bmp3-----------------\r\n");
+    Paint_SelectImage(BlackImage);
+    Paint_Clear(EPD_7IN3F_WHITE);
+    GUI_ReadBmp_RGB_7Color("./myPic/2reduziert.bmp", 0, 0);
+    EPD_7IN3F_Display(BlackImage);
+    DEV_Delay_ms(3000);
 #endif
 #if 0   // Drawing on the image
 
