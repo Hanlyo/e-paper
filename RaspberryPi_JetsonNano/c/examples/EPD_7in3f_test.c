@@ -178,6 +178,13 @@ int getFirstWeekdayOfMonth() {
     return now->tm_wday;
 }
 
+int getCurrentDayOfMonth() {
+    time_t t = time(NULL);
+    struct tm *now = localtime(&t);
+
+    // Ersten Tag des Monats setzen
+    return now->tm_mday;
+}
 
 
 
@@ -346,6 +353,7 @@ int EPD_7in3f_test(void)
     int x = 0;
     int y = 0;
     int firstWeekdayOfMonth = getFirstWeekdayOfMonth();
+    int currentDay = getCurrentDayOfMonth();
 
     int i;
     for (i=firstWeekdayOfMonth;i<32+firstWeekdayOfMonth;i++) {
@@ -357,6 +365,11 @@ int EPD_7in3f_test(void)
         static char numStr[52];  // Puffer für die Zeichenkette
         sprintf(numStr, "%d", i-firstWeekdayOfMonth);
         printf("%d %d %s\n", x, y, numStr);
+    
+        if (i-firstWeekdayOfMonth == currentDay) {
+            // aktuellen Tag hervorheben
+            Paint_DrawCircle(x, y, 20, EPD_7IN3F_BLACK, DOT_PIXEL_8X8, DRAW_FILL_FULL);        
+        }
 
         Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
     }
