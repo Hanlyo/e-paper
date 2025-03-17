@@ -363,13 +363,13 @@ int EPD_7in3f_test(void)
     // starten zu zeichnen: 30 / 150
     int x = 0;
     int y = 0;
-    int firstWeekdayOfMonth = getFirstWeekdayOfMonth();
+    int firstWeekdayOfMonth = getFirstWeekdayOfMonth()-1;
     int currentDay = getCurrentDayOfMonth();
     int daysInMonth = 31;
 
     int i;
-    for (i=firstWeekdayOfMonth; i<daysInMonth+firstWeekdayOfMonth; i++) {
-        int temp = i-1;
+    for (i=firstWeekdayOfMonth; i<=daysInMonth+firstWeekdayOfMonth; i++) {
+        int temp = i;
         int tagDerWoche = (temp%7)==0?7:(temp%7);
         int woche = ((temp-1)/7)+1;
         x = 150 + (90*tagDerWoche) - 45;
