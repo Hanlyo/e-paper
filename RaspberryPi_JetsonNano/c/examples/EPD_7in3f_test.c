@@ -384,7 +384,7 @@ int EPD_7in3f_test(void)
             // font24: 24 Pixel hoch und 17 Pixel breit
             // 24 hoch / 34 breit 
             // mitte: 12 hoch / 17 breit
-            Paint_DrawCircle(x+17, y+12, 26, EPD_7IN3F_ORANGE, DOT_PIXEL_8X8, DRAW_FILL_FULL);
+            Paint_DrawCircle(x+17, y+11, 26, EPD_7IN3F_ORANGE, DOT_PIXEL_8X8, DRAW_FILL_FULL);
             Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_ORANGE, EPD_7IN3F_WHITE);
         } else {
             Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
