@@ -303,11 +303,13 @@ int EPD_7in3f_test(void)
 
     Paint_DrawLine(150, 320, 800, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
     
-
+    // font20 -> 14 Pixel breit
+    // 800 - 160 = 640 Pixel stehen zur verfügung
+    // 640 / 14 = 45 Zeichen
     Paint_DrawString_EN(160, 340, "Tomorrow is the biggest lie we tell ourselves.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_YELLOW);
     Paint_DrawString_EN(160, 360, "Because tomorrow never actually comes.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
     Paint_DrawString_EN(160, 380, "Only today exists. And today is when you", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
-    // Paint_DrawString_EN(160, 400, "either keep the streak alive — or let it die.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(160, 400, "either keep the streak alive - or let it die.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
 
 
     // Paint_DrawLine(001, 400, 479, 400, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
