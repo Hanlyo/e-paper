@@ -339,9 +339,11 @@ int EPD_7in3f_test(void)
         y = 30 + (55*woche) - 25;
 
         static char numStr[52];  // Puffer für die Zeichenkette
-        sprintf(numStr, ".2%f°C", i);
+        sprintf(numStr, ".2%d", i);
 
-        printf("%d %d %d %d\n", x, y, i, numStr);
+        printf("%d %d\n", x, y);
+        printf("%d\n", i);
+        printf("%s\n", numStr);
 
         
         Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
