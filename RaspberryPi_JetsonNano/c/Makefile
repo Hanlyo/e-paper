@@ -72,13 +72,13 @@ ${DIR_BIN}/%.o:$(DIR_Examples)/%.c
 	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) -I $(DIR_GUI) -I $(DIR_EPD) $(DEBUG) -lcurl -lcjson
 	
 ${DIR_BIN}/%.o:$(DIR_EPD)/%.c
-	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) $(DEBUG) -lcurl -lcjson
+	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) $(DEBUG)
 
 ${DIR_BIN}/%.o:$(DIR_FONTS)/%.c 
-	$(CC) $(CFLAGS) -c	$< -o $@ $(DEBUG) -lcurl -lcjson
+	$(CC) $(CFLAGS) -c	$< -o $@ $(DEBUG)
 	
 ${DIR_BIN}/%.o:$(DIR_GUI)/%.c
-	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) $(DEBUG) -lcurl -lcjson
+	$(CC) $(CFLAGS) -c	$< -o $@ -I $(DIR_Config) $(DEBUG)
 
 RPI_DEV:
 ifeq ($(USELIB_RPI), USE_DEV_LIB)
