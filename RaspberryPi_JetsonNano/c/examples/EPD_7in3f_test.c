@@ -328,8 +328,6 @@ int EPD_7in3f_test(void)
     // 480 - 180 = 300 Pixel stehen zur verfügung
     // 300 / 6 = 50 Pixel pro Woche
     // starten zu zeichnen: 30 / 150
-    int tag = 1;
-    int start = 6;
     int x = 0;
     int y = 0;
 
