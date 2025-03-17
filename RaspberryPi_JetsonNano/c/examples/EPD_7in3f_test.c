@@ -367,10 +367,11 @@ int EPD_7in3f_test(void)
     int currentDay = getCurrentDayOfMonth();
     int daysInMonth = 31;
 
-    int i=1;
-    for (i=i+firstWeekdayOfMonth; i<daysInMonth+firstWeekdayOfMonth; i++) {
-        int tagDerWoche = (i%7)==0?7:(i%7);
-        int woche = ((i-1)/7)+1;
+    int i;
+    for (i=firstWeekdayOfMonth; i<daysInMonth+firstWeekdayOfMonth; i++) {
+        int temp = i-1;
+        int tagDerWoche = (temp%7)==0?7:(temp%7);
+        int woche = ((temp-1)/7)+1;
         x = 150 + (90*tagDerWoche) - 45;
         y = 30 + (50*woche) - 25;
 
