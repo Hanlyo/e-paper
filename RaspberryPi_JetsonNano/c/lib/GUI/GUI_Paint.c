@@ -578,7 +578,7 @@ void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
     }// Write all
 }
 
-uint32_t getCharOffset(const charr Acsii_Char, sFONT* Font) {
+uint32_t getCharOffset(const char Acsii_Char, sFONT* Font) {
 
     if (Acsii_Char - ' ' > 95) {
         switch (Acsii_Char - ' ') {
