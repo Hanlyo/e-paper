@@ -549,7 +549,7 @@ void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
         return;
     }
 
-    uint32_t Char_Offset = (Acsii_Char - ' ') * Font->Height * (Font->Width / 8 + (Font->Width % 8 ? 1 : 0));
+    uint32_t Char_Offset = getCharOffset(Acsii_Char);
     const unsigned char *ptr = &Font->table[Char_Offset];
 
     for (Page = 0; Page < Font->Height; Page ++ ) {
@@ -576,6 +576,34 @@ void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
         if (Font->Width % 8 != 0)
             ptr++;
     }// Write all
+}
+
+uint32_t getCharOffset(const charr Acsii_Char) {
+
+    if (Acsii_Char - ' ' > 95) {
+        switch (Acsii_Char - ' ') {
+            case 164: // ä
+                return 96;
+            case 182: // ö
+                return 97;
+            case 188: // ü
+                return 98;
+            case 159: // ß
+                return 99;
+            case 176: // °
+                return 100;
+            case 132: // Ä
+                return 101;
+            case 150: // Ö
+                return 102;
+            case 156: // Ü
+                return 103;
+        }
+    }
+
+    uint32_t charOffset = (Acsii_Char - ' ') * Font->Height * (Font->Width / 8 + (Font->Width % 8 ? 1 : 0));
+
+    return charOffset;
 }
 
 /******************************************************************************
