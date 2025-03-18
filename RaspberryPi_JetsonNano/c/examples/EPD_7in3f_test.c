@@ -216,7 +216,7 @@ int aei(void)
     free(description);
 }
 
-int EPD_7in3f_test(void) {
+int test(void) {
     char c = 'ä';  // Das Zeichen, dessen ASCII-Wert du prüfen willst
     printf("ASCII-Wert von '%c': %d (Hex: 0x%X)\n", c, c, c);
     c = 'ö';  // Das Zeichen, dessen ASCII-Wert du prüfen willst
@@ -277,7 +277,7 @@ int EPD_7in3f_test(void) {
 
 
 
-int e(void)
+int EPD_7in3f_test(void)
 {
     printf("EPD_7IN3F_test Demo\r\n");
     if(DEV_Module_Init()!=0){
