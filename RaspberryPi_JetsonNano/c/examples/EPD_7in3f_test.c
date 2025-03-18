@@ -277,7 +277,7 @@ int EPD_7in3f_test(void) {
 
 
 
-int aei(void)
+int e(void)
 {
     printf("EPD_7IN3F_test Demo\r\n");
     if(DEV_Module_Init()!=0){
