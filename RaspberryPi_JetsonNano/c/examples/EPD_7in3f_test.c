@@ -216,7 +216,42 @@ int aei(void)
     free(description);
 }
 
+cJSON parseJson(const char *json) {
+    
+}
 
+int getInt() {
+    double speed = -999.0;
+    cJSON *wind = cJSON_GetObjectItem(root, "wind");
+    if (wind) {
+        cJSON *speed_json = cJSON_GetObjectItem(wind, "speed");
+        if (speed_json) {
+            speed = speed_json->valuedouble;
+        }
+    }
+}
+
+todo getString() {
+    char *description = NULL;
+    cJSON *weather = cJSON_GetObjectItem(root, "weather");
+    if (cJSON_IsArray(weather) && cJSON_GetArraySize(weather) > 0) {
+        cJSON *weather_item = cJSON_GetArrayItem(weather, 0);
+        if (weather_item) {
+            cJSON *desc = cJSON_GetObjectItem(weather_item, "description");
+            if (desc) {
+                description = strdup(desc->valuestring);
+            }
+        }
+    }
+}
+
+int[] getMinMaxTemp(const char *json, int tageInZukunft) {
+
+}
+
+int getIcon(const char *json, int tageInZukunft) {
+
+}
 
 
 
@@ -335,6 +370,9 @@ int EPD_7in3f_test(void)
     Paint_DrawString_EN(160, 360, "Because tomorrow never actually comes.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
     Paint_DrawString_EN(160, 380, "Only today exists. And today is when you", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
     Paint_DrawString_EN(160, 400, "either keep the streak alive - or let it die.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(160, 420, "test test test test test test test test test", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(160, 440, "test test test test test test test test test", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(160, 460, "test test test test test test test test test", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
 
     // Monat oben
     // font24 -> 17 Pixel breit
@@ -346,7 +384,6 @@ int EPD_7in3f_test(void)
 
 
     // Name der Tage anzeigen
-    // TODO
     Paint_DrawString_EN(195, 40, "Mo", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
     Paint_DrawString_EN(285, 40, "Di", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
     Paint_DrawString_EN(375, 40, "Mi", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
@@ -450,7 +487,9 @@ int EPD_7in3f_test(void)
 
 
 #if 0 // test 
-
+    // TODO
+    // Wetterdaten der nächsten Tage holen
+    // ich will Wetter-Icon und min/max Temperatur anzeigen
 #endif
 
 #if 0   // Drawing image from char arry
