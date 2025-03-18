@@ -348,8 +348,8 @@ int EPD_7in3f_test(void)
     //Paint_DrawString_EN(400, 0, str2, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
 
     // 4. Free resources
-    free(json);
-    free(description);
+    // free(json);
+    // free(description);
 
 
     // senkrechte Linie links
