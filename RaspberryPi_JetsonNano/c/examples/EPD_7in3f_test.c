@@ -245,13 +245,13 @@ todo getString() {
     }
 }
 
-int[] getMinMaxTemp(const char *json, int tageInZukunft) {
+// int[] getMinMaxTemp(const char *json, int tageInZukunft) {
 
-}
+// }
 
-int getIcon(const char *json, int tageInZukunft) {
+// int getIcon(const char *json, int tageInZukunft) {
 
-}
+// }
 
 
 
