@@ -549,7 +549,7 @@ void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
         return;
     }
 
-    uint32_t Char_Offset = getCharOffset(Acsii_Char);
+    uint32_t Char_Offset = getCharOffset(Acsii_Char, Font);
     const unsigned char *ptr = &Font->table[Char_Offset];
 
     for (Page = 0; Page < Font->Height; Page ++ ) {
@@ -578,7 +578,7 @@ void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
     }// Write all
 }
 
-uint32_t getCharOffset(const charr Acsii_Char) {
+uint32_t getCharOffset(const charr Acsii_Char, sFONT* Font) {
 
     if (Acsii_Char - ' ' > 95) {
         switch (Acsii_Char - ' ') {
