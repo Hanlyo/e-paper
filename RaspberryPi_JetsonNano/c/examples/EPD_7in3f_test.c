@@ -362,18 +362,20 @@ int EPD_7in3f_test(void)
 
     // Text und Icons links
     // 150 breit -> 75 mitte
+    // font16 -> 12 Pixel breit
+    // 9 Zeichen je 12 Pixel = 108 Pixel breit
     // 480 / 4 = 120 Pixel hoch
     // 70 für icon
     // 20 für text
     // 10 abstand über, unter und zwischen
     Paint_DrawRectangle(40, 10, 110, 80, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawString_EN(70, 90, "7°C/10°C", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
+    Paint_DrawString_EN(21, 90, "7°C/10°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
     Paint_DrawRectangle(40, 130, 110, 200, EPD_7IN3F_RED, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawString_EN(70, 210, "-5°C/0°C", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
+    Paint_DrawString_EN(21, 210, "-5°C/0°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
     Paint_DrawRectangle(40, 250, 110, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawString_EN(70, 330, "20°C/30°C", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(21, 330, "20°C/30°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
     Paint_DrawRectangle(40, 370, 110, 440, EPD_7IN3F_BLUE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawString_EN(70, 450, "25°C/30°C", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(21, 450, "25°C/30°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
 
     // horizontale Linie unten
     Paint_DrawLine(150, 320, 800, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
