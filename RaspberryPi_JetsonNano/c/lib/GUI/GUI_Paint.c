@@ -529,6 +529,45 @@ void Paint_DrawCircle(UWORD X_Center, UWORD Y_Center, UWORD Radius,
     }
 }
 
+uint32_t getCharOffset(const char Acsii_Char, sFONT* Font) {
+
+    uint32_t i = (Acsii_Char - ' ');
+
+    if (i > 95) {
+        switch (i) {
+            case 164: // ä
+                i = 96;
+                break;
+            case 182: // ö
+                i = 97;
+                break;
+            case 188: // ü
+                i = 98;
+                break;
+            case 159: // ß
+                i = 99;
+                break;
+            case 176: // °
+                i = 100;
+                break;
+            case 132: // Ä
+                i = 101;
+                break;
+            case 150: // Ö
+                i = 102;
+                break;
+            case 156: // Ü
+                i = 103;
+                break;
+        }
+    }
+
+    uint32_t charOffset = i * Font->Height * (Font->Width / 8 + (Font->Width % 8 ? 1 : 0));
+
+    return charOffset;
+}
+
+
 /******************************************************************************
 function: Show English characters
 parameter:
@@ -578,43 +617,6 @@ void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
     }// Write all
 }
 
-uint32_t getCharOffset(const char Acsii_Char, sFONT* Font) {
-
-    uint32_t i = (Acsii_Char - ' ');
-
-    if (i > 95) {
-        switch (i) {
-            case 164: // ä
-                i = 96;
-                break;
-            case 182: // ö
-                i = 97;
-                break;
-            case 188: // ü
-                i = 98;
-                break;
-            case 159: // ß
-                i = 99;
-                break;
-            case 176: // °
-                i = 100;
-                break;
-            case 132: // Ä
-                i = 101;
-                break;
-            case 150: // Ö
-                i = 102;
-                break;
-            case 156: // Ü
-                i = 103;
-                break;
-        }
-    }
-
-    uint32_t charOffset = i * Font->Height * (Font->Width / 8 + (Font->Width % 8 ? 1 : 0));
-
-    return charOffset;
-}
 
 /******************************************************************************
 function:	Display the string
