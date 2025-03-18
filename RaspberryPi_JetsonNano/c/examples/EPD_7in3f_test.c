@@ -216,34 +216,34 @@ int aei(void)
     free(description);
 }
 
-cJSON parseJson(const char *json) {
+// cJSON parseJson(const char *json) {
     
-}
+// }
 
-int getInt() {
-    double speed = -999.0;
-    cJSON *wind = cJSON_GetObjectItem(root, "wind");
-    if (wind) {
-        cJSON *speed_json = cJSON_GetObjectItem(wind, "speed");
-        if (speed_json) {
-            speed = speed_json->valuedouble;
-        }
-    }
-}
+// int getInt() {
+//     double speed = -999.0;
+//     cJSON *wind = cJSON_GetObjectItem(root, "wind");
+//     if (wind) {
+//         cJSON *speed_json = cJSON_GetObjectItem(wind, "speed");
+//         if (speed_json) {
+//             speed = speed_json->valuedouble;
+//         }
+//     }
+// }
 
-todo getString() {
-    char *description = NULL;
-    cJSON *weather = cJSON_GetObjectItem(root, "weather");
-    if (cJSON_IsArray(weather) && cJSON_GetArraySize(weather) > 0) {
-        cJSON *weather_item = cJSON_GetArrayItem(weather, 0);
-        if (weather_item) {
-            cJSON *desc = cJSON_GetObjectItem(weather_item, "description");
-            if (desc) {
-                description = strdup(desc->valuestring);
-            }
-        }
-    }
-}
+// todo getString() {
+//     char *description = NULL;
+//     cJSON *weather = cJSON_GetObjectItem(root, "weather");
+//     if (cJSON_IsArray(weather) && cJSON_GetArraySize(weather) > 0) {
+//         cJSON *weather_item = cJSON_GetArrayItem(weather, 0);
+//         if (weather_item) {
+//             cJSON *desc = cJSON_GetObjectItem(weather_item, "description");
+//             if (desc) {
+//                 description = strdup(desc->valuestring);
+//             }
+//         }
+//     }
+// }
 
 // int[] getMinMaxTemp(const char *json, int tageInZukunft) {
 
