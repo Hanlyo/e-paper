@@ -580,28 +580,38 @@ void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
 
 uint32_t getCharOffset(const char Acsii_Char, sFONT* Font) {
 
-    if (Acsii_Char - ' ' > 95) {
-        switch (Acsii_Char - ' ') {
+    uint32_t i = (Acsii_Char - ' ');
+
+    if (i > 95) {
+        switch (i) {
             case 164: // ä
-                return 96;
+                i = 96;
+                break;
             case 182: // ö
-                return 97;
+                i = 97;
+                break;
             case 188: // ü
-                return 98;
+                i = 98;
+                break;
             case 159: // ß
-                return 99;
+                i = 99;
+                break;
             case 176: // °
-                return 100;
+                i = 100;
+                break;
             case 132: // Ä
-                return 101;
+                i = 101;
+                break;
             case 150: // Ö
-                return 102;
+                i = 102;
+                break;
             case 156: // Ü
-                return 103;
+                i = 103;
+                break;
         }
     }
 
-    uint32_t charOffset = (Acsii_Char - ' ') * Font->Height * (Font->Width / 8 + (Font->Width % 8 ? 1 : 0));
+    uint32_t charOffset = i * Font->Height * (Font->Width / 8 + (Font->Width % 8 ? 1 : 0));
 
     return charOffset;
 }
