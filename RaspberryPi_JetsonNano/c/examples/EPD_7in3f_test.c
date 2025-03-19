@@ -389,21 +389,14 @@ int EPD_7in3f_test(void)
     // 70 für icon
     // 20 für text
     // 10 abstand über, unter und zwischen
-    // Paint_DrawRectangle(40, 10, 110, 80, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    // Paint_DrawString_EN(21, 90, "7°C/10°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
-    // Paint_DrawRectangle(40, 130, 110, 200, EPD_7IN3F_RED, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    // Paint_DrawString_EN(21, 210, "-5°C/0°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
-    // Paint_DrawRectangle(40, 250, 110, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    // Paint_DrawString_EN(21, 330, "20°C/30°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
-    // Paint_DrawRectangle(40, 370, 110, 440, EPD_7IN3F_BLUE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    // Paint_DrawString_EN(21, 450, "25°C/30°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
-
-
-    //test
-    Paint_DrawString_EN(21, 90, "äöü", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
-    // Problem: ° wird als 2 Zeichen interpretiert. 162 & 144
-    // Lösungsansätze:
-    //test
+    Paint_DrawRectangle(40, 10, 110, 80, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, DRAW_FILL_FULL);
+    Paint_DrawString_EN(21, 90, "7°C/10°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
+    Paint_DrawRectangle(40, 130, 110, 200, EPD_7IN3F_RED, DOT_PIXEL_1X1, DRAW_FILL_FULL);
+    Paint_DrawString_EN(21, 210, "-5°C/0°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
+    Paint_DrawRectangle(40, 250, 110, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
+    Paint_DrawString_EN(21, 330, "20°C/30°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawRectangle(40, 370, 110, 440, EPD_7IN3F_BLUE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
+    Paint_DrawString_EN(21, 450, "25°C/30°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
 
     // horizontale Linie unten
     Paint_DrawLine(150, 320, 800, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
@@ -411,13 +404,13 @@ int EPD_7in3f_test(void)
     // font20 -> 14 Pixel breit
     // 800 - 150 = 650 Pixel stehen zur verfügung
     // 650 / 14 = 45 Zeichen
-    // Paint_DrawString_EN(160, 340, "Tomorrow is the biggest lie we tell ourselves.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_YELLOW);
-    // Paint_DrawString_EN(160, 360, "Because tomorrow never actually comes.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
-    // Paint_DrawString_EN(160, 380, "Only today exists. And today is when you", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
-    // Paint_DrawString_EN(160, 400, "either keep the streak alive - or let it die.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
-    // Paint_DrawString_EN(160, 420, "test test test test test test test test test", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
-    // Paint_DrawString_EN(160, 440, "test test test test test test test test test", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
-    // Paint_DrawString_EN(160, 460, "test test test test test test test test test", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(160, 340, "Tomorrow is the biggest lie we tell ourselves.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_YELLOW);
+    Paint_DrawString_EN(160, 360, "Because tomorrow never actually comes.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+    Paint_DrawString_EN(160, 380, "Only today exists. And today is when you", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
+    Paint_DrawString_EN(160, 400, "either keep the streak alive - or let it die.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(160, 420, "test test test test test test test test test", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(160, 440, "test test test test test test test test test", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(160, 460, "test test test test test test test test test", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
 
     // Monat oben
     // font24 -> 17 Pixel breit
@@ -425,17 +418,17 @@ int EPD_7in3f_test(void)
     // 150 + ((800 - 150) / 2) = 475 <- Mitte
     // 475 - (2*17)
     // 475 - 34 = 441
-    // Paint_DrawString_EN(441, 5, "Maerz", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
+    Paint_DrawString_EN(441, 5, "März", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
 
 
     // Name der Tage anzeigen
-    // Paint_DrawString_EN(195, 40, "Mo", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    // Paint_DrawString_EN(285, 40, "Di", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    // Paint_DrawString_EN(375, 40, "Mi", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    // Paint_DrawString_EN(465, 40, "Do", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    // Paint_DrawString_EN(555, 40, "Fr", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    // Paint_DrawString_EN(645, 40, "Sa", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
-    // Paint_DrawString_EN(735, 40, "So", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(195, 40, "Mo", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(285, 40, "Di", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(375, 40, "Mi", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(465, 40, "Do", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(555, 40, "Fr", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(645, 40, "Sa", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
+    Paint_DrawString_EN(735, 40, "So", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
 
     // Tage mitte // TODO vllt nur aktuelle (nächste Woche anzeigen)
     // 800 - 150 = 650 Pixel stehen zur verfügung
@@ -449,29 +442,29 @@ int EPD_7in3f_test(void)
     int currentDay = getCurrentDayOfMonth();
     int daysInMonth = 31;
 
-    // int i;
-    // for (i=firstWeekdayOfMonth; i<daysInMonth+firstWeekdayOfMonth; i++) {
-    //     int tagDerWoche = (i%7)==0?7:(i%7);
-    //     int woche = ((i-1)/7)+1;
-    //     x = 150 + (90*tagDerWoche) - 45;
-    //     y = 30 + (50*woche) - 25;
+    int i;
+    for (i=firstWeekdayOfMonth; i<daysInMonth+firstWeekdayOfMonth; i++) {
+        int tagDerWoche = (i%7)==0?7:(i%7);
+        int woche = ((i-1)/7)+1;
+        x = 150 + (90*tagDerWoche) - 45;
+        y = 30 + (50*woche) - 25;
 
-    //     int temp = i-firstWeekdayOfMonth+1;
-    //     static char numStr[52];  // Puffer für die Zeichenkette
-    //     sprintf(numStr, "%d", temp);
-    //     // printf("%d %d %s\n", x, y, numStr);
+        int temp = i-firstWeekdayOfMonth+1;
+        static char numStr[52];  // Puffer für die Zeichenkette
+        sprintf(numStr, "%d", temp);
+        // printf("%d %d %s\n", x, y, numStr);
     
-    //     if (temp == currentDay) {
-    //         // aktuellen Tag hervorheben
-    //         // font24: 24 Pixel hoch und 17 Pixel breit
-    //         // 24 hoch / 34 breit 
-    //         // mitte: 12 hoch / 17 breit
-    //         Paint_DrawCircle(x+17, y+11, 26, EPD_7IN3F_ORANGE, DOT_PIXEL_8X8, DRAW_FILL_FULL);
-    //         Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_ORANGE, EPD_7IN3F_WHITE);
-    //     } else {
-    //         Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
-    //     }
-    // }
+        if (temp == currentDay) {
+            // aktuellen Tag hervorheben
+            // font24: 24 Pixel hoch und 17 Pixel breit
+            // 24 hoch / 34 breit 
+            // mitte: 12 hoch / 17 breit
+            Paint_DrawCircle(x+17, y+11, 26, EPD_7IN3F_ORANGE, DOT_PIXEL_8X8, DRAW_FILL_FULL);
+            Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_ORANGE, EPD_7IN3F_WHITE);
+        } else {
+            Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
+        }
+    }
 
 
     // Paint_DrawLine(001, 400, 479, 400, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
