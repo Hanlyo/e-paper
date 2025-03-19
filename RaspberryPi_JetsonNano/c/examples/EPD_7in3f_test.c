@@ -353,9 +353,11 @@ int EPD_7in3f_test(void)
 
 
     // senkrechte Linie links
+    Debug("Draw vertical line\r\n");
     Paint_DrawLine(150, 000, 150, 480, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
 
     // horizontale Linien links
+    Debug("Draw horizontal line\r\n");
     Paint_DrawLine(000, 120, 148, 120, EPD_7IN3F_RED, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
     Paint_DrawLine(000, 240, 148, 240, EPD_7IN3F_BLUE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
     Paint_DrawLine(000, 360, 148, 360, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
@@ -368,6 +370,7 @@ int EPD_7in3f_test(void)
     // 70 für icon
     // 20 für text
     // 10 abstand über, unter und zwischen
+    Debug("Draw icons and temperature\r\n");
     Paint_DrawRectangle(40, 10, 110, 80, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, DRAW_FILL_FULL);
     Paint_DrawString_EN(21, 90, "7°C/10°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
     Paint_DrawRectangle(40, 130, 110, 200, EPD_7IN3F_RED, DOT_PIXEL_1X1, DRAW_FILL_FULL);
@@ -378,11 +381,13 @@ int EPD_7in3f_test(void)
     Paint_DrawString_EN(21, 450, "25°C/30°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
 
     // horizontale Linie unten
+    Debug("Draw horizontal line at the bottom\r\n");
     Paint_DrawLine(150, 320, 800, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
     
     // font20 -> 14 Pixel breit
     // 800 - 150 = 650 Pixel stehen zur verfügung
     // 650 / 14 = 45 Zeichen
+    Debug("Draw text at the bottom\r\n");
     Paint_DrawString_EN(160, 340, "Tomorrow is the biggest lie we tell ourselves.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_YELLOW);
     Paint_DrawString_EN(160, 360, "Because tomorrow never actually comes.", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
     Paint_DrawString_EN(160, 380, "Only today exists. And today is when you", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
@@ -397,10 +402,12 @@ int EPD_7in3f_test(void)
     // 150 + ((800 - 150) / 2) = 475 <- Mitte
     // 475 - (2*17)
     // 475 - 34 = 441
+    Debug("Draw name of month\r\n");
     Paint_DrawString_EN(441, 5, "März", &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
 
 
     // Name der Tage anzeigen
+    Debug("Draw name of days\r\n");
     Paint_DrawString_EN(195, 40, "Mo", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
     Paint_DrawString_EN(285, 40, "Di", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
     Paint_DrawString_EN(375, 40, "Mi", &Font20, EPD_7IN3F_WHITE, EPD_7IN3F_GREEN);
@@ -421,6 +428,7 @@ int EPD_7in3f_test(void)
     int currentDay = getCurrentDayOfMonth();
     int daysInMonth = 31;
 
+    Debug("Draw days\r\n");
     int i;
     for (i=firstWeekdayOfMonth; i<daysInMonth+firstWeekdayOfMonth; i++) {
         int tagDerWoche = (i%7)==0?7:(i%7);
