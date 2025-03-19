@@ -593,8 +593,8 @@ int EPD_7in3f_test(void)
     DEV_Delay_ms(3000);
 #endif
 
-    printf("Clear...\r\n");
-    EPD_7IN3F_Clear(EPD_7IN3F_WHITE);
+    // printf("Clear...\r\n");
+    // EPD_7IN3F_Clear(EPD_7IN3F_WHITE);
 
     printf("Goto Sleep...\r\n");
     EPD_7IN3F_Sleep();
