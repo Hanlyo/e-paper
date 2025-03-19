@@ -542,24 +542,27 @@ uint32_t getCharOffset(const char Acsii_Char, sFONT* Font) {
             case 214: // ö
                 i = 96;
                 break;
-            case 154: // ü
+            case 220: // ü
                 i = 97;
                 break;
             case 144: // °
                 i = 98;
                 break;
-            case 127: // ß
-                i = 100;
+            default:
+                i = 3;
                 break;
-            case 100: // Ä
-                i = 101;
-                break;
-            case 128: // Ö
-                i = 102;
-                break;
-            case 124: // Ü
-                i = 103;
-                break;
+            // case 127: // ß
+            //     i = 100;
+            //     break;
+            // case 100: // Ä
+            //     i = 101;
+            //     break;
+            // case 128: // Ö
+            //     i = 102;
+            //     break;
+            // case 124: // Ü
+            //     i = 103;
+            //     break;
         }
     }
 
