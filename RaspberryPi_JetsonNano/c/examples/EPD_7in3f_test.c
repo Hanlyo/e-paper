@@ -400,7 +400,7 @@ int EPD_7in3f_test(void)
 
 
     //test
-    Paint_DrawString_EN(21, 90, "°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
+    Paint_DrawString_EN(21, 90, "°CäöüCßCÄÖÜ", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
     // Problem: ° wird als 2 Zeichen interpretiert. 162 & 144
     // Lösungsansätze:
     //test
