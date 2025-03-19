@@ -579,7 +579,7 @@ parameter:
     Color_Foreground : Select the foreground color
     Color_Background : Select the background color
 ******************************************************************************/
-void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
+void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const uint8_t Acsii_Char,
                     sFONT* Font, UWORD Color_Foreground, UWORD Color_Background)
 {
     UWORD Page, Column;
@@ -641,6 +641,28 @@ void Paint_DrawString_EN(UWORD Xstart, UWORD Ystart, const char * pString,
     }
 
     while (* pString != '\0') {
+        uint32_t unicode = 0;
+        uint8_t bytes = 1; 
+
+        if ((*pString & 0x80) == 0) { 
+            // 1-Byte ASCII-Zeichen (0xxxxxxx)
+            unicode = *pString;
+        } else if ((*pString & 0xE0) == 0xC0) { 
+            // 2-Byte UTF-8 (110xxxxx 10xxxxxx)
+            unicode = ((*pString & 0x1F) << 6) | (pString[1] & 0x3F);
+            bytes = 2;
+        } else if ((*pString & 0xF0) == 0xE0) { 
+            // 3-Byte UTF-8 (1110xxxx 10xxxxxx 10xxxxxx)
+            unicode = ((*pString & 0x0F) << 12) | ((pString[1] & 0x3F) << 6) | (pString[2] & 0x3F);
+            bytes = 3;
+        }
+
+        // Falls es sich um ein unterstütztes Zeichen handelt, zeichne es
+        if (unicode != 0) {
+            Paint_DrawChar(Xpoint, Ypoint, unicode, Font, Color_Background, Color_Foreground);
+        }
+
+
         //if X direction filled , reposition to(Xstart,Ypoint),Ypoint is Y direction plus the Height of the character
         if ((Xpoint + Font->Width ) > Paint.Width ) {
             Xpoint = Xstart;
@@ -652,10 +674,10 @@ void Paint_DrawString_EN(UWORD Xstart, UWORD Ystart, const char * pString,
             Xpoint = Xstart;
             Ypoint = Ystart;
         }
-        Paint_DrawChar(Xpoint, Ypoint, * pString, Font, Color_Background, Color_Foreground);
+        // Paint_DrawChar(Xpoint, Ypoint, * pString, Font, Color_Background, Color_Foreground);
 
         //The next character of the address
-        pString ++;
+        pString += bytes;
 
         //The next word of the abscissa increases the font of the broadband
         Xpoint += Font->Width;
