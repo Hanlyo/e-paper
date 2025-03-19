@@ -216,27 +216,6 @@ int aei(void)
     free(description);
 }
 
-int test(void) {
-    char c = 'ä';  // Das Zeichen, dessen ASCII-Wert du prüfen willst
-    printf("ASCII-Wert von '%c': %d (Hex: 0x%X)\n", c, c, c);
-    c = 'ö';  // Das Zeichen, dessen ASCII-Wert du prüfen willst
-    printf("ASCII-Wert von '%c': %d (Hex: 0x%X)\n", c, c, c);
-    c = 'ü';  // Das Zeichen, dessen ASCII-Wert du prüfen willst
-    printf("ASCII-Wert von '%c': %d (Hex: 0x%X)\n", c, c, c);
-    c = 'ß';  // Das Zeichen, dessen ASCII-Wert du prüfen willst
-    printf("ASCII-Wert von '%c': %d (Hex: 0x%X)\n", c, c, c);
-    c = '°';  // Das Zeichen, dessen ASCII-Wert du prüfen willst
-    printf("ASCII-Wert von '%c': %d (Hex: 0x%X)\n", c, c, c);
-
-    c = 'Ä';  // Das Zeichen, dessen ASCII-Wert du prüfen willst
-    printf("ASCII-Wert von '%c': %d (Hex: 0x%X)\n", c, c, c);
-    c = 'Ö';  // Das Zeichen, dessen ASCII-Wert du prüfen willst
-    printf("ASCII-Wert von '%c': %d (Hex: 0x%X)\n", c, c, c);
-    c = 'Ü';  // Das Zeichen, dessen ASCII-Wert du prüfen willst
-    printf("ASCII-Wert von '%c': %d (Hex: 0x%X)\n", c, c, c);
-    return 0;
-}
-
 // cJSON parseJson(const char *json) {
     
 // }
