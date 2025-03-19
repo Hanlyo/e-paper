@@ -532,8 +532,7 @@ void Paint_DrawCircle(UWORD X_Center, UWORD Y_Center, UWORD Radius,
 uint32_t getCharOffset(const char Acsii_Char, sFONT* Font) {
 
     uint32_t i = (Acsii_Char - ' ');
-    printf("asciiChar: %c, i: %d\n", Acsii_Char, i);
-
+    
     if (i > 95) {
         switch (i) {
             case 196: // ä
@@ -549,6 +548,7 @@ uint32_t getCharOffset(const char Acsii_Char, sFONT* Font) {
                 i = 98;
                 break;
             default:
+                printf("asciiChar: %c, i: %d\n", Acsii_Char, i);
                 i = 3;
                 break;
             // case 127: // ß
