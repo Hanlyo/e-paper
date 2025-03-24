@@ -76,7 +76,7 @@ char getApiKey() {
     // API-Key ausgeben
     printf("API-Key: %s\n", apiKey);
 
-    retirn *apiKey;
+    return apiKey;
 }
 
 
