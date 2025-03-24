@@ -38,8 +38,6 @@
 #include <cjson/cJSON.h>
 
 
-#define API_KEY ""
-
 #define URL_FORMAT "https://api.openweathermap.org/data/2.5/weather?lat=51.511532&lon=7.093030&appid=%s&units=metric&lang=de"
 #define FORECAST_URL_FORMAT "https://api.openweathermap.org/data/3.0/onecall?lat=51.511532&lon=7.093030&exclude=minutely,hourly&appid=%s&units=metric&lang=de"
 
@@ -584,7 +582,9 @@ int EPD_7in3f_test(void)
     // Wetterdaten der nächsten Tage holen
     // ich will Wetter-Icon und min/max Temperatur anzeigen
 
-    char *json = fetch_weather_data(API_KEY);
+    char apiKey = getApiKey();
+    printf("apiKey: %s\n", apiKey);
+    char *json = fetch_weather_data(apiKey);
     fetch_forecast_data(json);
     printf("forecast json: %s\n", json);
 
