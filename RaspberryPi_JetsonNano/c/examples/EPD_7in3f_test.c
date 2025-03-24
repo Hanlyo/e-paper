@@ -583,7 +583,7 @@ int EPD_7in3f_test(void)
 
     const char *apiKey = getApiKey();
     printf("apiKey: %s\n", apiKey);
-    char *json = fetch_weather_data(apiKey);
+    char *json = fetch_forecast_data(apiKey);
     printf("forecast json: %s\n", json);
 
     free(apiKey);
