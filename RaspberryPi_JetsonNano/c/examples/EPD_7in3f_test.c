@@ -584,7 +584,7 @@ int EPD_7in3f_test(void)
     // Wetterdaten der nächsten Tage holen
     // ich will Wetter-Icon und min/max Temperatur anzeigen
 
-    char *apiKey = getApiKey();
+    char apiKey = getApiKey();
     printf("apiKey: %s\n", apiKey);
     char *json = fetch_weather_data(apiKey);
     fetch_forecast_data(json);
