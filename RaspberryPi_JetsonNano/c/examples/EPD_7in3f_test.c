@@ -651,14 +651,14 @@ int EPD_7in3f_test(void)
     // printf("Clear...\r\n");
     // EPD_7IN3F_Clear(EPD_7IN3F_WHITE);
 
-    printf("Goto Sleep...\r\n");
-    EPD_7IN3F_Sleep();
-    free(BlackImage);
-    BlackImage = NULL;
-    DEV_Delay_ms(2000); // important, at least 2s
-    // close 5V
-    printf("close 5V, Module enters 0 power consumption ...\r\n");
-    DEV_Module_Exit();
+    // printf("Goto Sleep...\r\n");
+    // EPD_7IN3F_Sleep();
+    // free(BlackImage);
+    // BlackImage = NULL;
+    // DEV_Delay_ms(2000); // important, at least 2s
+    // // close 5V
+    // printf("close 5V, Module enters 0 power consumption ...\r\n");
+    // DEV_Module_Exit();
     
     return 0;
 }
