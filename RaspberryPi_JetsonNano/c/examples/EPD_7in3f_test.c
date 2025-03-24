@@ -284,11 +284,13 @@ char *fetch_forecast_data(const char *api_key) {
 // Funktion zum Extrahieren eines JSON-Arrays aus einem JSON-String
 cJSON *extract_json_array(const char *json_str, const char *array_key) {
     cJSON *root = cJSON_Parse(json_str);
-    if (!root) {
+    if (root == NULL) {
         fprintf(stderr, "Fehler beim Parsen des JSON\n");
         return NULL;
     }
 
+    printf("root: %s\n", root);
+    printf("root->valuestring: %s\n", root->valuestring);
     cJSON *json_array = cJSON_GetObjectItem(root, "daily");
     printf("json_array: %s\n", json_array);
     if (!cJSON_IsArray(json_array)) {
