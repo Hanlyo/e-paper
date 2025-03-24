@@ -334,18 +334,24 @@ char *testtest(const char *json) {
         fprintf(stderr, "Fehler beim Parsen der JSON-Daten\n");
         return NULL;
     }
+    printf("a\r\n");
 
     char *description = NULL;
     cJSON *weather = cJSON_GetObjectItem(root, "daily");
+    printf("b\r\n");
     if (cJSON_IsArray(weather) && cJSON_GetArraySize(weather) > 0) {
         cJSON *weather_item = cJSON_GetArrayItem(weather, 0);
+        printf("c\r\n");
         if (weather_item) {
+            printf("d\r\n");
             cJSON *desc = cJSON_GetObjectItem(weather_item, "sunrise");
             if (desc) {
+                printf("e\r\n");
                 description = strdup(desc->valuestring);
             }
         }
     }
+    printf("f\r\n");
 
     cJSON_Delete(root);
     return description;
