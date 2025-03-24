@@ -253,45 +253,55 @@ char *fetch_forecast_data(const char *api_key) {
 }
 
 
-// Funktion zum Extrahieren der Tages-Temperatur aus daily->temp->day
-double get_daily_temp_day(const char *json_str, int day_index) {
+// Funktion zum Extrahieren der Min- und Max-Temperatur aus daily->temp
+char *get_daily_temp_range(const char *json_str, int day_index) {
     cJSON *root = cJSON_Parse(json_str);
     if (!root) {
         fprintf(stderr, "Fehler beim Parsen des JSON.\n");
-        return -1;
+        return NULL;
     }
 
     cJSON *daily_array = cJSON_GetObjectItem(root, "daily");
     if (!cJSON_IsArray(daily_array)) {
         fprintf(stderr, "daily ist kein Array.\n");
         cJSON_Delete(root);
-        return -1;
+        return NULL;
     }
 
     cJSON *day_entry = cJSON_GetArrayItem(daily_array, day_index);
     if (!cJSON_IsObject(day_entry)) {
         fprintf(stderr, "Kein Eintrag für Index %d.\n", day_index);
         cJSON_Delete(root);
-        return -1;
+        return NULL;
     }
 
     cJSON *temp_obj = cJSON_GetObjectItem(day_entry, "temp");
     if (!cJSON_IsObject(temp_obj)) {
         fprintf(stderr, "Kein temp-Objekt für Index %d.\n", day_index);
         cJSON_Delete(root);
-        return -1;
+        return NULL;
     }
 
-    cJSON *temp_day = cJSON_GetObjectItem(temp_obj, "day");
-    if (!cJSON_IsNumber(temp_day)) {
-        fprintf(stderr, "Kein gültiger day-Wert für Index %d.\n", day_index);
+    cJSON *temp_min = cJSON_GetObjectItem(temp_obj, "min");
+    cJSON *temp_max = cJSON_GetObjectItem(temp_obj, "max");
+
+    if (!cJSON_IsNumber(temp_min) || !cJSON_IsNumber(temp_max)) {
+        fprintf(stderr, "Ungültige min/max-Werte für Index %d.\n", day_index);
         cJSON_Delete(root);
-        return -1;
+        return NULL;
     }
 
-    double temp_value = temp_day->valuedouble;
+    // Speicher für das Ausgabeformat "min°C/max°C"
+    char *result = (char *)malloc(20);
+    if (!result) {
+        fprintf(stderr, "Speicherzuweisung fehlgeschlagen.\n");
+        cJSON_Delete(root);
+        return NULL;
+    }
+    snprintf(result, 20, "%.2f°C/%.2f°C", temp_min->valuedouble, temp_max->valuedouble);
+
     cJSON_Delete(root);
-    return temp_value;
+    return result;
 }
 
 
@@ -347,33 +357,33 @@ const char *get_daily_weather_icon(const char *json_str, int day_index) {
 
 int EPD_7in3f_test(void)
 {
-    // printf("EPD_7IN3F_test Demo\r\n");
-    // if(DEV_Module_Init()!=0){
-    //     return -1;
-    // }
+    printf("EPD_7IN3F_test Demo\r\n");
+    if(DEV_Module_Init()!=0){
+        return -1;
+    }
 
-    // printf("e-Paper Init and Clear...\r\n");
-    // EPD_7IN3F_Init();
+    printf("e-Paper Init and Clear...\r\n");
+    EPD_7IN3F_Init();
 
-    // struct timespec start={0,0}, finish={0,0}; 
-    // clock_gettime(CLOCK_REALTIME, &start);
-    // EPD_7IN3F_Clear(EPD_7IN3F_WHITE); // WHITE
-    // clock_gettime(CLOCK_REALTIME, &finish);
-    // printf("%ld S\r\n", finish.tv_sec-start.tv_sec);    
-    // DEV_Delay_ms(1000);
+    struct timespec start={0,0}, finish={0,0}; 
+    clock_gettime(CLOCK_REALTIME, &start);
+    EPD_7IN3F_Clear(EPD_7IN3F_WHITE); // WHITE
+    clock_gettime(CLOCK_REALTIME, &finish);
+    printf("%ld S\r\n", finish.tv_sec-start.tv_sec);    
+    DEV_Delay_ms(1000);
 
-    // //Create a new image cache
-    // UBYTE *BlackImage;
-    // UDOUBLE Imagesize = ((EPD_7IN3F_WIDTH % 2 == 0)? (EPD_7IN3F_WIDTH / 2 ): (EPD_7IN3F_WIDTH / 2 + 1)) * EPD_7IN3F_HEIGHT;
-    // if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
-    //     printf("Failed to apply for black memory...\r\n");
-    //     return -1;
-    // }
-    // printf("Paint_NewImage\r\n");
-    // Paint_NewImage(BlackImage, EPD_7IN3F_WIDTH, EPD_7IN3F_HEIGHT, 0, EPD_7IN3F_WHITE);
-    // Paint_SetScale(7);
+    //Create a new image cache
+    UBYTE *BlackImage;
+    UDOUBLE Imagesize = ((EPD_7IN3F_WIDTH % 2 == 0)? (EPD_7IN3F_WIDTH / 2 ): (EPD_7IN3F_WIDTH / 2 + 1)) * EPD_7IN3F_HEIGHT;
+    if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
+        printf("Failed to apply for black memory...\r\n");
+        return -1;
+    }
+    printf("Paint_NewImage\r\n");
+    Paint_NewImage(BlackImage, EPD_7IN3F_WIDTH, EPD_7IN3F_HEIGHT, 0, EPD_7IN3F_WHITE);
+    Paint_SetScale(7);
 
-    // Paint_SetRotate(ROTATE_180);
+    Paint_SetRotate(ROTATE_180);
 
 #if 0   // show bmp
     printf("show bmp1-----------------\r\n");
@@ -397,28 +407,27 @@ int EPD_7in3f_test(void)
     EPD_7IN3F_Display(BlackImage);
     DEV_Delay_ms(3000);
 #endif
-#if 0   // Drawing on the image
+#if 1   // Drawing on the image
 
     // 1.Fetching weather data
-    // char *json = fetch_weather_data(API_KEY);
-    // if (json == NULL) {
-    //     fprintf(stderr, "Fehler beim Abrufen der Wetterdaten\n");
-    //     return 1;
-    // }
+    const char *apiKey = getApiKey();
+    printf("apiKey: %s\n", apiKey);
+    char *json = fetch_forecast_data(apiKey);
+    printf("forecast json: %s\n", json);
 
-    // double temp = get_temperature(json);
-    // char *description = get_weather_description(json);
 
-    // static char str[52];  // Puffer für die Zeichenkette
-    // sprintf(str, ".2%f°C", temp);
-    // const char *temp_str = str;
-    // printf("Temperatur: %s\n", temp);
-    // printf("Temperatur: %s\n", str);
-    // printf("Temperatur: %s\n", temp_str);
 
-    // static char str2[52];  // Puffer für die Zeichenkette
-    // sprintf(str2, "%s", description);
-    // printf("Wetter: %s\n", str2 ? str2 : "Unbekannt");
+    char *temp0 = get_daily_temp_range(json, 0);
+    printf("temp: %.2f\n", temp0);
+
+    char *temp1 = get_daily_temp_range(json, 1);
+    printf("temp: %.2f\n", temp1);
+
+    char *temp 2 = get_daily_temp_range(json, 2);
+    printf("temp: %.2f\n", temp2);
+
+    char *temp3 = get_daily_temp_range(json, 3);
+    printf("temp: %.2f\n", temp3);
 
 
 
@@ -461,13 +470,13 @@ int EPD_7in3f_test(void)
     // 10 abstand über, unter und zwischen
     Debug("Draw icons and temperature\r\n");
     Paint_DrawRectangle(40, 10, 110, 80, EPD_7IN3F_GREEN, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawString_EN(21, 90, "7°C/10°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
+    Paint_DrawString_EN(21, 90, temp0, &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
     Paint_DrawRectangle(40, 130, 110, 200, EPD_7IN3F_RED, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawString_EN(21, 210, "-5°C/0°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
+    Paint_DrawString_EN(21, 210, temp1, &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_BLUE);
     Paint_DrawRectangle(40, 250, 110, 320, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawString_EN(21, 330, "20°C/30°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(21, 330, temp2, &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
     Paint_DrawRectangle(40, 370, 110, 440, EPD_7IN3F_BLUE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawString_EN(21, 450, "25°C/30°C", &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
+    Paint_DrawString_EN(21, 450, temp3, &Font16, EPD_7IN3F_WHITE, EPD_7IN3F_RED);
 
     // horizontale Linie unten
     Debug("Draw horizontal line at the bottom\r\n");
@@ -594,13 +603,23 @@ int EPD_7in3f_test(void)
     // Paint_DrawString_EN(150, 150, "hello world", &Font24, EPD_7IN3F_ORANGE, EPD_7IN3F_BLACK);
     // Paint_DrawString_EN(150, 180, "hello world", &Font24, EPD_7IN3F_BLACK, EPD_7IN3F_YELLOW);
 
+    
+    // free everything
+    free(temp0);
+    free(temp1);
+    free(temp2);
+    free(temp3);
+    free(apiKey);
+    free(json);
+    
+    
     printf("EPD_Display\r\n");
     EPD_7IN3F_Display(BlackImage);
     DEV_Delay_ms(3000);
 #endif
 
 
-#if 1 // test 
+#if 0 // test 
     // TODO
     // Wetterdaten der nächsten Tage holen
     // ich will Wetter-Icon und min/max Temperatur anzeigen
@@ -719,14 +738,14 @@ int EPD_7in3f_test(void)
     // printf("Clear...\r\n");
     // EPD_7IN3F_Clear(EPD_7IN3F_WHITE);
 
-    // printf("Goto Sleep...\r\n");
-    // EPD_7IN3F_Sleep();
-    // free(BlackImage);
-    // BlackImage = NULL;
-    // DEV_Delay_ms(2000); // important, at least 2s
-    // // close 5V
-    // printf("close 5V, Module enters 0 power consumption ...\r\n");
-    // DEV_Module_Exit();
+    printf("Goto Sleep...\r\n");
+    EPD_7IN3F_Sleep();
+    free(BlackImage);
+    BlackImage = NULL;
+    DEV_Delay_ms(2000); // important, at least 2s
+    // close 5V
+    printf("close 5V, Module enters 0 power consumption ...\r\n");
+    DEV_Module_Exit();
     
     return 0;
 }
