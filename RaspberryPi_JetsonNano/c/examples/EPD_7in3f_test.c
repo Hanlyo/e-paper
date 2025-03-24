@@ -298,7 +298,7 @@ char *get_daily_temp_range(const char *json_str, int day_index) {
         cJSON_Delete(root);
         return NULL;
     }
-    snprintf(result, 20, "%.2f°C/%.2f°C", temp_min->valuedouble, temp_max->valuedouble);
+    snprintf(result, 20, "%.0f°C/%.0f°C", temp_min->valuedouble, temp_max->valuedouble);
 
     cJSON_Delete(root);
     return result;
@@ -418,16 +418,16 @@ int EPD_7in3f_test(void)
 
 
     char *temp0 = get_daily_temp_range(json, 0);
-    printf("temp: %.2f\n", temp0);
+    printf("temp: %s\n", temp0);
 
     char *temp1 = get_daily_temp_range(json, 1);
-    printf("temp: %.2f\n", temp1);
+    printf("temp: %s\n", temp1);
 
     char *temp2 = get_daily_temp_range(json, 2);
-    printf("temp: %.2f\n", temp2);
+    printf("temp: %s\n", temp2);
 
     char *temp3 = get_daily_temp_range(json, 3);
-    printf("temp: %.2f\n", temp3);
+    printf("temp: %s\n", temp3);
 
 
 
