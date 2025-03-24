@@ -327,6 +327,30 @@ cJSON *get_value_from_json_array(cJSON *json_array, int index, const char *key) 
     return value; // Gibt ein cJSON-Objekt zurück (String, Zahl, Objekt, etc.)
 }
 
+
+char *testtest(const char *json) {
+    cJSON *root = cJSON_Parse(json);
+    if (root == NULL) {
+        fprintf(stderr, "Fehler beim Parsen der JSON-Daten\n");
+        return NULL;
+    }
+
+    char *description = NULL;
+    cJSON *weather = cJSON_GetObjectItem(root, "daily");
+    if (cJSON_IsArray(weather) && cJSON_GetArraySize(weather) > 0) {
+        cJSON *weather_item = cJSON_GetArrayItem(weather, 0);
+        if (weather_item) {
+            cJSON *desc = cJSON_GetObjectItem(weather_item, "sunrise");
+            if (desc) {
+                description = strdup(desc->valuestring);
+            }
+        }
+    }
+
+    cJSON_Delete(root);
+    return description;
+}
+
 // int getInt() {
 //     double speed = -999.0;
 //     cJSON *wind = cJSON_GetObjectItem(root, "wind");
@@ -627,6 +651,16 @@ int EPD_7in3f_test(void)
     printf("apiKey: %s\n", apiKey);
     char *json = fetch_forecast_data(apiKey);
     printf("forecast json: %s\n", json);
+
+
+
+//test
+char *test = testtest(json);
+printf("test: %s\n", test);
+
+//test
+
+
 
 
 
