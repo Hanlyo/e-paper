@@ -618,6 +618,10 @@ int EPD_7in3f_test(void)
     const char *icon = get_daily_weather_icon(json, 1);
     printf("icon: %s\n", icon);
 
+    static char a[52];  // Puffer für die Zeichenkette
+    sprintf(a, "%s", icon);
+    printf("icon: %s\n", a);
+
     // cJSON *json_array = extract_json_array(json, "daily");
     // if (!json_array) {
     //     return 1;
