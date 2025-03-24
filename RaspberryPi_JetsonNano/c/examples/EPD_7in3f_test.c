@@ -289,6 +289,9 @@ cJSON *extract_json_array(const char *json_str, const char *array_key) {
         return NULL;
     }
 
+    printf("-----------------------------------------------------------------------------------------------\n");
+    printf("json: %s\n", json_str);
+
     printf("root: %s\n", root);
     printf("root->valuestring: %s\n", root->valuestring);
     cJSON *json_array = cJSON_GetObjectItem(root, "daily");
