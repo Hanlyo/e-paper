@@ -57,7 +57,7 @@ char *getApiKey() {
     }
 
     // API-Key aus der Datei lesen
-    char apiKey = malloc(MAX_KEY_LENGTH);
+    char *apiKey = malloc(MAX_KEY_LENGTH);
     if (fgets(apiKey, MAX_KEY_LENGTH, file) == NULL) {
         perror("Fehler beim Lesen der Datei");
         fclose(file);
