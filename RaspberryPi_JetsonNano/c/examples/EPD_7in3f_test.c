@@ -300,7 +300,7 @@ cJSON *extract_json_array(const char *json_str, const char *array_key) {
 }
 
 // Funktion zum Abrufen eines Wertes aus einem JSON-Array
-const char *get_value_from_json_array(cJSON *json_array, int index, const char *key) {
+cJSON *get_value_from_json_array(cJSON *json_array, int index, const char *key) {
     if (!cJSON_IsArray(json_array)) {
         fprintf(stderr, "Ungültiges JSON-Array.\n");
         return NULL;
@@ -313,15 +313,12 @@ const char *get_value_from_json_array(cJSON *json_array, int index, const char *
     }
 
     cJSON *value = cJSON_GetObjectItem(element, key);
-    printf("value: %s\n", value);
-    printf("value->valuestring: %s\n", value->valuestring);
-    printf("*value: %s\n", *value);
-    // if (!cJSON_IsString(value)) {
-    //     fprintf(stderr, "Der Wert für Schlüssel \"%s\" ist nicht vom Typ String.\n", key);
-    //     return NULL;
-    // }
+    if (!value) {
+        fprintf(stderr, "Der Schlüssel \"%s\" existiert nicht.\n", key);
+        return NULL;
+    }
 
-    return value->valuestring; // String-Wert zurückgeben
+    return value; // Gibt ein cJSON-Objekt zurück (String, Zahl, Objekt, etc.)
 }
 
 // int getInt() {
@@ -632,12 +629,20 @@ int EPD_7in3f_test(void)
         return 1;
     }
 
-    const char *temp = get_value_from_json_array(json_array, 1, "temp");
-    if (temp) {
-        printf("Temperatur am zweiten Tag: %s\n", temp);
+    // String holen
+    cJSON *temp_value = get_value_from_json_array(json_array, 1, "humidity");
+    if (cJSON_IsString(temp_value)) {
+        printf("Luftfeuchtigkeit am zweiten Tag: %s\n", temp_value->valuestring);
     }
 
-    printf("temp: %s\n", temp);
+    // JSON-Objekt holen
+    cJSON *details = get_value_from_json_array(json_array, 1, "temp");
+    if (cJSON_IsObject(details)) {
+        cJSON *humidity = cJSON_GetObjectItem(details, "day");
+        if (cJSON_IsString(humidity)) {
+            printf("Temperatur am zweiten Tag: %s\n", humidity->valuestring);
+        }
+    }
 
 
     cJSON_Delete(json_array); // Speicherfreigabe
