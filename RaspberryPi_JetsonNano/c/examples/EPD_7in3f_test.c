@@ -289,8 +289,7 @@ cJSON *extract_json_array(const char *json_str, const char *array_key) {
         return NULL;
     }
 
-    cJSON *json_array = cJSON_GetObjectItem(root, array_key);
-    printf("array_key: %s\n", array_key);
+    cJSON *json_array = cJSON_GetObjectItem(root, "daily");
     printf("json_array: %s\n", json_array);
     if (!cJSON_IsArray(json_array)) {
         fprintf(stderr, "Der Schlüssel \"%s\" enthält kein Array.\n", array_key);
