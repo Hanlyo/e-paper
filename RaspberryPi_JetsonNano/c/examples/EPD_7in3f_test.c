@@ -568,9 +568,6 @@ int EPD_7in3f_test(void)
 
 
 #if 0 // test 
-    // TODO
-    // Wetterdaten der nächsten Tage holen
-    // ich will Wetter-Icon und min/max Temperatur anzeigen
 
     const char *apiKey = getApiKey();
     printf("apiKey: %s\n", apiKey);
