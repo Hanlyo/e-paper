@@ -49,7 +49,7 @@ struct MemoryStruct {
 
 #define MAX_KEY_LENGTH 256  // Maximale Länge des API-Keys
 
-char getApiKey() {
+*char getApiKey() {
     FILE *file;
     char apiKey[MAX_KEY_LENGTH];
 
@@ -75,6 +75,8 @@ char getApiKey() {
 
     // API-Key ausgeben
     printf("API-Key: %s\n", apiKey);
+
+    retirn *apiKey;
 }
 
 
@@ -219,30 +221,30 @@ int getCurrentDayOfMonth() {
 
 int aei(void)
 {
-    char *json = fetch_weather_data(API_KEY);
-    if (json == NULL) {
-        fprintf(stderr, "Fehler beim Abrufen der Wetterdaten\n");
-        return 1;
-    }
+    // char *json = fetch_weather_data(API_KEY);
+    // if (json == NULL) {
+    //     fprintf(stderr, "Fehler beim Abrufen der Wetterdaten\n");
+    //     return 1;
+    // }
 
-    double temp = get_temperature(json);
-    char *description = get_weather_description(json);
-    double windSpeed = get_wind_speed(json);
+    // double temp = get_temperature(json);
+    // char *description = get_weather_description(json);
+    // double windSpeed = get_wind_speed(json);
 
-    printf("Temperatur: %.2f°C\n", temp);
-    printf("Wetter: %s\n", description ? description : "Unbekannt");
-    printf("Windgeschwindigkeit: %.2f m/s\n", windSpeed);
+    // printf("Temperatur: %.2f°C\n", temp);
+    // printf("Wetter: %s\n", description ? description : "Unbekannt");
+    // printf("Windgeschwindigkeit: %.2f m/s\n", windSpeed);
 
 
-    static char strTemp[52];  // Puffer für die Zeichenkette
-    sprintf(strTemp, ".2%f", temp);
-    static char strDescription[52];  // Puffer für die Zeichenkette
-    sprintf(strDescription, "%s", description);
-    static char strWindSpeed[52];  // Puffer für die Zeichenkette
-    sprintf(strWindSpeed, ".2%f", windSpeed);
+    // static char strTemp[52];  // Puffer für die Zeichenkette
+    // sprintf(strTemp, ".2%f", temp);
+    // static char strDescription[52];  // Puffer für die Zeichenkette
+    // sprintf(strDescription, "%s", description);
+    // static char strWindSpeed[52];  // Puffer für die Zeichenkette
+    // sprintf(strWindSpeed, ".2%f", windSpeed);
 
-    free(json);
-    free(description);
+    // free(json);
+    // free(description);
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -582,13 +584,14 @@ int EPD_7in3f_test(void)
     // Wetterdaten der nächsten Tage holen
     // ich will Wetter-Icon und min/max Temperatur anzeigen
 
-    char apiKey = getApiKey();
+    *char apiKey = getApiKey();
     printf("apiKey: %s\n", apiKey);
     char *json = fetch_weather_data(apiKey);
     fetch_forecast_data(json);
     printf("forecast json: %s\n", json);
 
 
+    free(json);
 
 #endif
 
