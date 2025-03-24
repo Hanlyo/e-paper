@@ -41,12 +41,43 @@
 #define API_KEY ""
 
 #define URL_FORMAT "https://api.openweathermap.org/data/2.5/weather?lat=51.511532&lon=7.093030&appid=%s&units=metric&lang=de"
-#define FORECAST_URL_FORMAT "https://api.openweathermap.org/data/2.5/forecast?lat=51.511532&lon=7.093030&appid=%s&units=metric&lang=de"
+#define FORECAST_URL_FORMAT "https://api.openweathermap.org/data/3.0/onecall?lat=51.511532&lon=7.093030&exclude=minutely,hourly&appid=%s&units=metric&lang=de"
 
 struct MemoryStruct {
     char *memory;
     size_t size;
 };
+
+
+#define MAX_KEY_LENGTH 256  // Maximale Länge des API-Keys
+
+char getApiKey() {
+    FILE *file;
+    char apiKey[MAX_KEY_LENGTH];
+
+    // Datei öffnen (ersetze "apikey.txt" mit deinem Dateinamen)
+    file = fopen("apikey.txt", "r");
+    if (file == NULL) {
+        perror("Fehler beim Öffnen der Datei");
+        return EXIT_FAILURE;
+    }
+
+    // API-Key aus der Datei lesen
+    if (fgets(apiKey, MAX_KEY_LENGTH, file) == NULL) {
+        perror("Fehler beim Lesen der Datei");
+        fclose(file);
+        return EXIT_FAILURE;
+    }
+
+    // Datei schließen
+    fclose(file);
+
+    // Entferne das Zeilenende (falls vorhanden)
+    apiKey[strcspn(apiKey, "\n")] = 0;
+
+    // API-Key ausgeben
+    printf("API-Key: %s\n", apiKey);
+}
 
 
 
@@ -216,6 +247,43 @@ int aei(void)
     free(description);
 }
 
+///////////////////////////////////////////////////////////////////
+
+
+char *fetch_forecast_data(const char *api_key) {
+    CURL *curl;
+    CURLcode res;
+    struct MemoryStruct chunk;
+
+    chunk.memory = malloc(1);
+    chunk.size = 0;
+
+    char url[256];
+    snprintf(url, sizeof(url), URL_FORMAT, api_key);
+
+    curl_global_init(CURL_GLOBAL_ALL);
+    curl = curl_easy_init();
+
+    if (curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, url);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+        res = curl_easy_perform(curl);
+        if (res != CURLE_OK) {
+            fprintf(stderr, "cURL Fehler: %s\n", curl_easy_strerror(res));
+            free(chunk.memory);
+            chunk.memory = NULL;
+        }
+
+        curl_easy_cleanup(curl);
+    }
+
+    curl_global_cleanup();
+    return chunk.memory;
+}
+
+
 // cJSON parseJson(const char *json) {
     
 // }
@@ -258,33 +326,33 @@ int aei(void)
 
 int EPD_7in3f_test(void)
 {
-    printf("EPD_7IN3F_test Demo\r\n");
-    if(DEV_Module_Init()!=0){
-        return -1;
-    }
+    // printf("EPD_7IN3F_test Demo\r\n");
+    // if(DEV_Module_Init()!=0){
+    //     return -1;
+    // }
 
-    printf("e-Paper Init and Clear...\r\n");
-    EPD_7IN3F_Init();
+    // printf("e-Paper Init and Clear...\r\n");
+    // EPD_7IN3F_Init();
 
-    struct timespec start={0,0}, finish={0,0}; 
-    clock_gettime(CLOCK_REALTIME, &start);
-    EPD_7IN3F_Clear(EPD_7IN3F_WHITE); // WHITE
-    clock_gettime(CLOCK_REALTIME, &finish);
-    printf("%ld S\r\n", finish.tv_sec-start.tv_sec);    
-    DEV_Delay_ms(1000);
+    // struct timespec start={0,0}, finish={0,0}; 
+    // clock_gettime(CLOCK_REALTIME, &start);
+    // EPD_7IN3F_Clear(EPD_7IN3F_WHITE); // WHITE
+    // clock_gettime(CLOCK_REALTIME, &finish);
+    // printf("%ld S\r\n", finish.tv_sec-start.tv_sec);    
+    // DEV_Delay_ms(1000);
 
-    //Create a new image cache
-    UBYTE *BlackImage;
-    UDOUBLE Imagesize = ((EPD_7IN3F_WIDTH % 2 == 0)? (EPD_7IN3F_WIDTH / 2 ): (EPD_7IN3F_WIDTH / 2 + 1)) * EPD_7IN3F_HEIGHT;
-    if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
-        printf("Failed to apply for black memory...\r\n");
-        return -1;
-    }
-    printf("Paint_NewImage\r\n");
-    Paint_NewImage(BlackImage, EPD_7IN3F_WIDTH, EPD_7IN3F_HEIGHT, 0, EPD_7IN3F_WHITE);
-    Paint_SetScale(7);
+    // //Create a new image cache
+    // UBYTE *BlackImage;
+    // UDOUBLE Imagesize = ((EPD_7IN3F_WIDTH % 2 == 0)? (EPD_7IN3F_WIDTH / 2 ): (EPD_7IN3F_WIDTH / 2 + 1)) * EPD_7IN3F_HEIGHT;
+    // if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
+    //     printf("Failed to apply for black memory...\r\n");
+    //     return -1;
+    // }
+    // printf("Paint_NewImage\r\n");
+    // Paint_NewImage(BlackImage, EPD_7IN3F_WIDTH, EPD_7IN3F_HEIGHT, 0, EPD_7IN3F_WHITE);
+    // Paint_SetScale(7);
 
-    Paint_SetRotate(ROTATE_180);
+    // Paint_SetRotate(ROTATE_180);
 
 #if 0   // show bmp
     printf("show bmp1-----------------\r\n");
@@ -308,7 +376,7 @@ int EPD_7in3f_test(void)
     EPD_7IN3F_Display(BlackImage);
     DEV_Delay_ms(3000);
 #endif
-#if 1   // Drawing on the image
+#if 0   // Drawing on the image
 
     // 1.Fetching weather data
     // char *json = fetch_weather_data(API_KEY);
@@ -511,10 +579,17 @@ int EPD_7in3f_test(void)
 #endif
 
 
-#if 0 // test 
+#if 1 // test 
     // TODO
     // Wetterdaten der nächsten Tage holen
     // ich will Wetter-Icon und min/max Temperatur anzeigen
+
+    char *json = fetch_weather_data(API_KEY);
+    fetch_forecast_data(json);
+    printf("forecast json: %s\n", json);
+
+
+
 #endif
 
 #if 0   // Drawing image from char arry
