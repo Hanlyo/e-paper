@@ -216,34 +216,6 @@ int getCurrentDayOfMonth() {
 
 
 
-int aei(void)
-{
-    // char *json = fetch_weather_data(API_KEY);
-    // if (json == NULL) {
-    //     fprintf(stderr, "Fehler beim Abrufen der Wetterdaten\n");
-    //     return 1;
-    // }
-
-    // double temp = get_temperature(json);
-    // char *description = get_weather_description(json);
-    // double windSpeed = get_wind_speed(json);
-
-    // printf("Temperatur: %.2f°C\n", temp);
-    // printf("Wetter: %s\n", description ? description : "Unbekannt");
-    // printf("Windgeschwindigkeit: %.2f m/s\n", windSpeed);
-
-
-    // static char strTemp[52];  // Puffer für die Zeichenkette
-    // sprintf(strTemp, ".2%f", temp);
-    // static char strDescription[52];  // Puffer für die Zeichenkette
-    // sprintf(strDescription, "%s", description);
-    // static char strWindSpeed[52];  // Puffer für die Zeichenkette
-    // sprintf(strWindSpeed, ".2%f", windSpeed);
-
-    // free(json);
-    // free(description);
-}
-
 ///////////////////////////////////////////////////////////////////
 
 
@@ -281,86 +253,46 @@ char *fetch_forecast_data(const char *api_key) {
 }
 
 
-// Funktion zum Extrahieren eines JSON-Arrays aus einem JSON-String
-cJSON *extract_json_array(const char *json_str, const char *array_key) {
+// Funktion zum Extrahieren der Tages-Temperatur aus daily->temp->day
+double get_daily_temp_day(const char *json_str, int day_index) {
     cJSON *root = cJSON_Parse(json_str);
-    if (root == NULL) {
-        fprintf(stderr, "Fehler beim Parsen des JSON\n");
-        return NULL;
+    if (!root) {
+        fprintf(stderr, "Fehler beim Parsen des JSON.\n");
+        return -1;
     }
 
-    printf("-----------------------------------------------------------------------------------------------\n");
-    printf("json: %s\n", json_str);
-
-    printf("root: %s\n", root);
-    printf("root->valuestring: %s\n", root->valuestring);
-    cJSON *json_array = cJSON_GetObjectItem(root, "daily");
-    printf("json_array: %s\n", json_array);
-    if (!cJSON_IsArray(json_array)) {
-        fprintf(stderr, "Der Schlüssel \"%s\" enthält kein Array.\n", array_key);
+    cJSON *daily_array = cJSON_GetObjectItem(root, "daily");
+    if (!cJSON_IsArray(daily_array)) {
+        fprintf(stderr, "daily ist kein Array.\n");
         cJSON_Delete(root);
-        return NULL;
+        return -1;
     }
 
-    return json_array; // json_array darf nicht gelöscht werden, root aber schon!
+    cJSON *day_entry = cJSON_GetArrayItem(daily_array, day_index);
+    if (!cJSON_IsObject(day_entry)) {
+        fprintf(stderr, "Kein Eintrag für Index %d.\n", day_index);
+        cJSON_Delete(root);
+        return -1;
+    }
+
+    cJSON *temp_obj = cJSON_GetObjectItem(day_entry, "temp");
+    if (!cJSON_IsObject(temp_obj)) {
+        fprintf(stderr, "Kein temp-Objekt für Index %d.\n", day_index);
+        cJSON_Delete(root);
+        return -1;
+    }
+
+    cJSON *temp_day = cJSON_GetObjectItem(temp_obj, "day");
+    if (!cJSON_IsNumber(temp_day)) {
+        fprintf(stderr, "Kein gültiger day-Wert für Index %d.\n", day_index);
+        cJSON_Delete(root);
+        return -1;
+    }
+
+    double temp_value = temp_day->valuedouble;
+    cJSON_Delete(root);
+    return temp_value;
 }
-
-// Funktion zum Abrufen eines Wertes aus einem JSON-Array
-cJSON *get_value_from_json_array(cJSON *json_array, int index, const char *key) {
-    if (!cJSON_IsArray(json_array)) {
-        fprintf(stderr, "Ungültiges JSON-Array.\n");
-        return NULL;
-    }
-
-    cJSON *element = cJSON_GetArrayItem(json_array, index);
-    if (!cJSON_IsObject(element)) {
-        fprintf(stderr, "Das Element an Index %d ist kein JSON-Objekt.\n", index);
-        return NULL;
-    }
-
-    cJSON *value = cJSON_GetObjectItem(element, key);
-    if (!value) {
-        fprintf(stderr, "Der Schlüssel \"%s\" existiert nicht.\n", key);
-        return NULL;
-    }
-
-    return value; // Gibt ein cJSON-Objekt zurück (String, Zahl, Objekt, etc.)
-}
-
-
-// int getInt() {
-//     double speed = -999.0;
-//     cJSON *wind = cJSON_GetObjectItem(root, "wind");
-//     if (wind) {
-//         cJSON *speed_json = cJSON_GetObjectItem(wind, "speed");
-//         if (speed_json) {
-//             speed = speed_json->valuedouble;
-//         }
-//     }
-// }
-
-// todo getString() {
-//     char *description = NULL;
-//     cJSON *weather = cJSON_GetObjectItem(root, "weather");
-//     if (cJSON_IsArray(weather) && cJSON_GetArraySize(weather) > 0) {
-//         cJSON *weather_item = cJSON_GetArrayItem(weather, 0);
-//         if (weather_item) {
-//             cJSON *desc = cJSON_GetObjectItem(weather_item, "description");
-//             if (desc) {
-//                 description = strdup(desc->valuestring);
-//             }
-//         }
-//     }
-// }
-
-// int[] getMinMaxTemp(const char *json, int tageInZukunft) {
-
-// }
-
-// int getIcon(const char *json, int tageInZukunft) {
-
-// }
-
 
 
 
@@ -631,38 +563,39 @@ int EPD_7in3f_test(void)
 
 
 
+    double temp = get_daily_temp_day(json, 1);
+    printf("temp: %f\n", temp);
+
+    // cJSON *json_array = extract_json_array(json, "daily");
+    // if (!json_array) {
+    //     return 1;
+    // }
+
+    // // String holen
+    // cJSON *temp_value = get_value_from_json_array(json_array, 1, "humidity");
+    // if (cJSON_IsString(temp_value)) {
+    //     printf("Luftfeuchtigkeit am zweiten Tag: %s\n", temp_value->valuestring);
+    // }
+    // static char a[52];  // Puffer für die Zeichenkette
+    // sprintf(a, "%s", temp_value->valuestring);
+
+    // printf("temp: %s\r\n", a);
+    // printf("nach humidity\r\n");
+
+    // // JSON-Objekt holen
+    // cJSON *details = get_value_from_json_array(json_array, 1, "temp");
+    // if (cJSON_IsObject(details)) {
+    //     cJSON *humidity = cJSON_GetObjectItem(details, "day");
+    //     static char b[52];  // Puffer für die Zeichenkette
+    //     sprintf(b, "%s", humidity->valuestring);
+    //     if (cJSON_IsString(humidity)) {
+    //         printf("Temperatur am zweiten Tag: %s\n", humidity->valuestring);
+    //     }
+    // }
+    // printf("nach temp\r\n");
 
 
-    cJSON *json_array = extract_json_array(json, "daily");
-    if (!json_array) {
-        return 1;
-    }
-
-    // String holen
-    cJSON *temp_value = get_value_from_json_array(json_array, 1, "humidity");
-    if (cJSON_IsString(temp_value)) {
-        printf("Luftfeuchtigkeit am zweiten Tag: %s\n", temp_value->valuestring);
-    }
-    static char a[52];  // Puffer für die Zeichenkette
-    sprintf(a, "%s", temp_value->valuestring);
-
-    printf("temp: %s\r\n", a);
-    printf("nach humidity\r\n");
-
-    // JSON-Objekt holen
-    cJSON *details = get_value_from_json_array(json_array, 1, "temp");
-    if (cJSON_IsObject(details)) {
-        cJSON *humidity = cJSON_GetObjectItem(details, "day");
-        static char b[52];  // Puffer für die Zeichenkette
-        sprintf(b, "%s", humidity->valuestring);
-        if (cJSON_IsString(humidity)) {
-            printf("Temperatur am zweiten Tag: %s\n", humidity->valuestring);
-        }
-    }
-    printf("nach temp\r\n");
-
-
-    cJSON_Delete(json_array); // Speicherfreigabe
+    // cJSON_Delete(json_array); // Speicherfreigabe
 
     
 
