@@ -637,9 +637,6 @@ int EPD_7in3f_test(void)
     if (!json_array) {
         return 1;
     }
-    printf("array: %s\r\n", json_array);
-    printf("array->valuestring: %s\r\n", json_array->valuestring);
-    printf("array geholt\r\n");
 
     // String holen
     cJSON *temp_value = get_value_from_json_array(json_array, 1, "humidity");
@@ -647,7 +644,7 @@ int EPD_7in3f_test(void)
         printf("Luftfeuchtigkeit am zweiten Tag: %s\n", temp_value->valuestring);
     }
     static char a[52];  // Puffer für die Zeichenkette
-    sprintf(a, "%d", temp_value);
+    sprintf(a, "%s", temp_value->valuestring);
 
     printf("temp: %s\r\n", a);
     printf("nach humidity\r\n");
@@ -657,7 +654,7 @@ int EPD_7in3f_test(void)
     if (cJSON_IsObject(details)) {
         cJSON *humidity = cJSON_GetObjectItem(details, "day");
         static char b[52];  // Puffer für die Zeichenkette
-    sprintf(b, "%d", humidity);
+        sprintf(b, "%s", humidity->valuestring);
         if (cJSON_IsString(humidity)) {
             printf("Temperatur am zweiten Tag: %s\n", humidity->valuestring);
         }
