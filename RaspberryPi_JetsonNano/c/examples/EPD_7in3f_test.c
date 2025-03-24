@@ -256,7 +256,7 @@ char *fetch_forecast_data(const char *api_key) {
     chunk.size = 0;
 
     char url[256];
-    snprintf(url, sizeof(url), URL_FORMAT, api_key);
+    snprintf(url, sizeof(url), FORECAST_URL_FORMAT, api_key);
 
     curl_global_init(CURL_GLOBAL_ALL);
     curl = curl_easy_init();
