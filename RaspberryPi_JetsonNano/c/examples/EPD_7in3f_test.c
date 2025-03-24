@@ -637,8 +637,8 @@ int EPD_7in3f_test(void)
     if (cJSON_IsString(temp_value)) {
         printf("Luftfeuchtigkeit am zweiten Tag: %s\n", temp_value->valuestring);
     }
-    printf("temp: %s\r\n", temp);
-    printf("temp->valuestring: %s\r\n", temp->valuestring);
+    printf("temp: %s\r\n", temp_value);
+    printf("temp->valuestring: %s\r\n", temp_value->valuestring);
     printf("nach humidity\r\n");
 
     // JSON-Objekt holen
