@@ -423,7 +423,7 @@ int EPD_7in3f_test(void)
     char *temp1 = get_daily_temp_range(json, 1);
     printf("temp: %.2f\n", temp1);
 
-    char *temp 2 = get_daily_temp_range(json, 2);
+    char *temp2 = get_daily_temp_range(json, 2);
     printf("temp: %.2f\n", temp2);
 
     char *temp3 = get_daily_temp_range(json, 3);
