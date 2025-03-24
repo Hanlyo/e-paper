@@ -281,9 +281,45 @@ char *fetch_forecast_data(const char *api_key) {
 }
 
 
-// cJSON parseJson(const char *json) {
-    
-// }
+// Funktion zum Extrahieren eines JSON-Arrays aus einem JSON-String
+cJSON *extract_json_array(const char *json_str, const char *array_key) {
+    cJSON *root = cJSON_Parse(json_str);
+    if (!root) {
+        fprintf(stderr, "Fehler beim Parsen des JSON\n");
+        return NULL;
+    }
+
+    cJSON *json_array = cJSON_GetObjectItem(root, array_key);
+    if (!cJSON_IsArray(json_array)) {
+        fprintf(stderr, "Der Schlüssel \"%s\" enthält kein Array.\n", array_key);
+        cJSON_Delete(root);
+        return NULL;
+    }
+
+    return json_array; // json_array darf nicht gelöscht werden, root aber schon!
+}
+
+// Funktion zum Abrufen eines Wertes aus einem JSON-Array
+const char *get_value_from_json_array(cJSON *json_array, int index, const char *key) {
+    if (!cJSON_IsArray(json_array)) {
+        fprintf(stderr, "Ungültiges JSON-Array.\n");
+        return NULL;
+    }
+
+    cJSON *element = cJSON_GetArrayItem(json_array, index);
+    if (!cJSON_IsObject(element)) {
+        fprintf(stderr, "Das Element an Index %d ist kein JSON-Objekt.\n", index);
+        return NULL;
+    }
+
+    cJSON *value = cJSON_GetObjectItem(element, key);
+    if (!cJSON_IsString(value)) {
+        fprintf(stderr, "Der Wert für Schlüssel \"%s\" ist nicht vom Typ String.\n", key);
+        return NULL;
+    }
+
+    return value->valuestring; // String-Wert zurückgeben
+}
 
 // int getInt() {
 //     double speed = -999.0;
@@ -585,6 +621,22 @@ int EPD_7in3f_test(void)
     printf("apiKey: %s\n", apiKey);
     char *json = fetch_forecast_data(apiKey);
     printf("forecast json: %s\n", json);
+
+
+
+    cJSON *json_array = extract_json_array(json, "daily");
+    if (!json_array) {
+        return 1;
+    }
+
+    const char *temp = get_value_from_json_array(json_array, 1, "temp");
+    if (temp) {
+        printf("Temperatur am zweiten Tag: %s\n", temp);
+    }
+
+    cJSON_Delete(json_array); // Speicherfreigabe
+
+    
 
     free(apiKey);
     free(json);
