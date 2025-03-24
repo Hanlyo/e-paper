@@ -628,15 +628,18 @@ int EPD_7in3f_test(void)
     if (!json_array) {
         return 1;
     }
-
-    printf("array geholt");
+    printf("array: %s\r\n", json_array);
+    printf("array->valuestring: %s\r\n", json_array->valuestring);
+    printf("array geholt\r\n");
 
     // String holen
     cJSON *temp_value = get_value_from_json_array(json_array, 1, "humidity");
     if (cJSON_IsString(temp_value)) {
         printf("Luftfeuchtigkeit am zweiten Tag: %s\n", temp_value->valuestring);
     }
-    printf("nach humidity");
+    printf("temp: %s\r\n", temp);
+    printf("temp->valuestring: %s\r\n", temp->valuestring);
+    printf("nach humidity\r\n");
 
     // JSON-Objekt holen
     cJSON *details = get_value_from_json_array(json_array, 1, "temp");
@@ -647,7 +650,7 @@ int EPD_7in3f_test(void)
         }
     }
 
-    printf("nach temp");
+    printf("nach temp\r\n");
 
 
     cJSON_Delete(json_array); // Speicherfreigabe
