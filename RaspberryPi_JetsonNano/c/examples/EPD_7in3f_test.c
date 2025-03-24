@@ -313,10 +313,10 @@ const char *get_value_from_json_array(cJSON *json_array, int index, const char *
     }
 
     cJSON *value = cJSON_GetObjectItem(element, key);
-    if (!cJSON_IsString(value)) {
-        fprintf(stderr, "Der Wert für Schlüssel \"%s\" ist nicht vom Typ String.\n", key);
-        return NULL;
-    }
+    // if (!cJSON_IsString(value)) {
+    //     fprintf(stderr, "Der Wert für Schlüssel \"%s\" ist nicht vom Typ String.\n", key);
+    //     return NULL;
+    // }
 
     return value->valuestring; // String-Wert zurückgeben
 }
@@ -633,6 +633,9 @@ int EPD_7in3f_test(void)
     if (temp) {
         printf("Temperatur am zweiten Tag: %s\n", temp);
     }
+
+    printf("temp: %s\n", temp);
+
 
     cJSON_Delete(json_array); // Speicherfreigabe
 
