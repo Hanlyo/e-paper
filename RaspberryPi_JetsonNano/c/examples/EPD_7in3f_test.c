@@ -656,13 +656,12 @@ int EPD_7in3f_test(void)
     cJSON *details = get_value_from_json_array(json_array, 1, "temp");
     if (cJSON_IsObject(details)) {
         cJSON *humidity = cJSON_GetObjectItem(details, "day");
+        static char b[52];  // Puffer für die Zeichenkette
+    sprintf(b, "%d", humidity);
         if (cJSON_IsString(humidity)) {
             printf("Temperatur am zweiten Tag: %s\n", humidity->valuestring);
         }
     }
-
-    static char b[52];  // Puffer für die Zeichenkette
-    sprintf(b, "%d", humidity);
     printf("nach temp\r\n");
 
 
