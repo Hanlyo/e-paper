@@ -53,7 +53,7 @@ char *getApiKey() {
     FILE *file = fopen("apikey.txt", "r");
     if (file == NULL) {
         perror("Fehler beim Öffnen der Datei");
-        return null;
+        return NULL;
     }
 
     // API-Key aus der Datei lesen
@@ -61,7 +61,7 @@ char *getApiKey() {
     if (fgets(apiKey, MAX_KEY_LENGTH, file) == NULL) {
         perror("Fehler beim Lesen der Datei");
         fclose(file);
-        return null;
+        return NULL;
     }
 
     // Datei schließen
