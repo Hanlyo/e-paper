@@ -50,21 +50,18 @@ struct MemoryStruct {
 #define MAX_KEY_LENGTH 256  // Maximale Länge des API-Keys
 
 char *getApiKey() {
-    FILE *file;
-    char apiKey[MAX_KEY_LENGTH];
-
-    // Datei öffnen (ersetze "apikey.txt" mit deinem Dateinamen)
-    file = fopen("apikey.txt", "r");
+    FILE *file = fopen("apikey.txt", "r");
     if (file == NULL) {
         perror("Fehler beim Öffnen der Datei");
-        return EXIT_FAILURE;
+        return null;
     }
 
     // API-Key aus der Datei lesen
+    char apiKey = malloc(MAX_KEY_LENGTH);
     if (fgets(apiKey, MAX_KEY_LENGTH, file) == NULL) {
         perror("Fehler beim Lesen der Datei");
         fclose(file);
-        return EXIT_FAILURE;
+        return null;
     }
 
     // Datei schließen
@@ -76,7 +73,7 @@ char *getApiKey() {
     // API-Key ausgeben
     printf("API-Key: %s\n", apiKey);
 
-    return *apiKey;
+    return apiKey;
 }
 
 
@@ -587,10 +584,9 @@ int EPD_7in3f_test(void)
     const char *apiKey = getApiKey();
     printf("apiKey: %s\n", apiKey);
     char *json = fetch_weather_data(apiKey);
-    fetch_forecast_data(json);
     printf("forecast json: %s\n", json);
 
-
+    free(apiKey);
     free(json);
 
 #endif
