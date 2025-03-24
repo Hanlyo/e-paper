@@ -313,6 +313,9 @@ const char *get_value_from_json_array(cJSON *json_array, int index, const char *
     }
 
     cJSON *value = cJSON_GetObjectItem(element, key);
+    printf("value: %s\n", value);
+    printf("value->valuestring: %s\n", value->valuestring);
+    printf("*value: %s\n", *value);
     // if (!cJSON_IsString(value)) {
     //     fprintf(stderr, "Der Wert für Schlüssel \"%s\" ist nicht vom Typ String.\n", key);
     //     return NULL;
