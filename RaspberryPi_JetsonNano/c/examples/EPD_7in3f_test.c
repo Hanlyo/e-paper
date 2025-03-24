@@ -296,6 +296,55 @@ double get_daily_temp_day(const char *json_str, int day_index) {
 
 
 
+// Funktion zum Extrahieren des Wetter-Icons aus daily->weather->icon
+const char *get_daily_weather_icon(const char *json_str, int day_index) {
+    cJSON *root = cJSON_Parse(json_str);
+    if (!root) {
+        fprintf(stderr, "Fehler beim Parsen des JSON.\n");
+        return NULL;
+    }
+
+    cJSON *daily_array = cJSON_GetObjectItem(root, "daily");
+    if (!cJSON_IsArray(daily_array)) {
+        fprintf(stderr, "daily ist kein Array.\n");
+        cJSON_Delete(root);
+        return NULL;
+    }
+
+    cJSON *day_entry = cJSON_GetArrayItem(daily_array, day_index);
+    if (!cJSON_IsObject(day_entry)) {
+        fprintf(stderr, "Kein Eintrag für Index %d.\n", day_index);
+        cJSON_Delete(root);
+        return NULL;
+    }
+
+    cJSON *weather_array = cJSON_GetObjectItem(day_entry, "weather");
+    if (!cJSON_IsArray(weather_array)) {
+        fprintf(stderr, "Kein weather-Array für Index %d.\n", day_index);
+        cJSON_Delete(root);
+        return NULL;
+    }
+
+    cJSON *weather_entry = cJSON_GetArrayItem(weather_array, 0);
+    if (!cJSON_IsObject(weather_entry)) {
+        fprintf(stderr, "Kein gültiger weather-Eintrag für Index %d.\n", day_index);
+        cJSON_Delete(root);
+        return NULL;
+    }
+
+    cJSON *icon = cJSON_GetObjectItem(weather_entry, "icon");
+    if (!cJSON_IsString(icon)) {
+        fprintf(stderr, "Kein gültiger icon-Wert für Index %d.\n", day_index);
+        cJSON_Delete(root);
+        return NULL;
+    }
+
+    const char *icon_value = icon->valuestring;
+    cJSON_Delete(root);
+    return icon_value;
+}
+
+
 int EPD_7in3f_test(void)
 {
     // printf("EPD_7IN3F_test Demo\r\n");
@@ -564,7 +613,10 @@ int EPD_7in3f_test(void)
 
 
     double temp = get_daily_temp_day(json, 1);
-    printf("temp: %f\n", temp);
+    printf("temp: %.2f\n", temp);
+
+    const char *icon = get_daily_weather_icon(json, 1);
+    printf("icon: %s\n", icon);
 
     // cJSON *json_array = extract_json_array(json, "daily");
     // if (!json_array) {
