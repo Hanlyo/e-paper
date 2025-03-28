@@ -480,7 +480,7 @@ int EPD_7in3f_test(void)
 
     // horizontale Linie unten
     Debug("Draw horizontal line at the bottom\r\n");
-    Paint_DrawLine(150, 330, 800, 330, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
+    Paint_DrawLine(150, 332, 800, 332, EPD_7IN3F_ORANGE, DOT_PIXEL_2X2, LINE_STYLE_SOLID);
     
     // font20 -> 14 Pixel breit
     // 800 - 150 = 650 Pixel stehen zur verfügung
