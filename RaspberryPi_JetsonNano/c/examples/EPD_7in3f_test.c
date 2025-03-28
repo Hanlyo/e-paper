@@ -552,8 +552,8 @@ int EPD_7in3f_test(void)
             // test etwas unter dem aktuellen Tag darstellen
             // font12: 12 Pixel hoch und 7 Pixel breit
             // 90 Pixel pro Tag ^= 14 Zeichen
-            Paint_DrawString_EN(x-45, y+24, "Staub saugen", &Font12, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
-            Paint_DrawString_EN(x-45, y+32, "Spuelen", &Font12, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+            Paint_DrawString_EN(x-42, y+24, "Staub saugen", &Font12, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+            Paint_DrawString_EN(x-42, y+36, "Spuelen", &Font12, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
         } else {
             Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
         }
