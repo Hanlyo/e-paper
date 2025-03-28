@@ -548,6 +548,12 @@ int EPD_7in3f_test(void)
             // mitte: 12 hoch / 17 breit
             // Paint_DrawCircle(x+17, y+11, 26, EPD_7IN3F_ORANGE, DOT_PIXEL_1X1, DRAW_FILL_EMPTY);
             Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+
+            // test etwas unter dem aktuellen Tag darstellen
+            // font8: 8 Pixel hoch und 5 Pixel breit
+            // 90 Pixel pro Tag ^= 18 Zeichen
+            Paint_DrawString_EN(x-45, y+24, "Staub saugen", &Font8, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
+            Paint_DrawString_EN(x-45, y+30, "Spülen", &Font8, EPD_7IN3F_WHITE, EPD_7IN3F_ORANGE);
         } else {
             Paint_DrawString_EN(x, y, numStr, &Font24, EPD_7IN3F_WHITE, EPD_7IN3F_BLACK);
         }
